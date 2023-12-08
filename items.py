@@ -1,0 +1,1 @@
+goldenSeaweed = 'Golden Seaweed'

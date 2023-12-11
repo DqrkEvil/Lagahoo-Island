@@ -1,17 +1,36 @@
 
 import keyboard
+import time
 
-keyboard.add_hotkey("w",  lambda: print("upp"))
-keyboard.add_hotkey("up arrow",  lambda: print("upp"))
+x = ""
+def up():
 
-keyboard.add_hotkey("a",  lambda: print("vänster"))
-keyboard.add_hotkey("left arrow",  lambda: print("vänster"))
+    global x
+    x = "upp"
 
-keyboard.add_hotkey("s",  lambda: print("ner"))
-keyboard.add_hotkey("down arrow",  lambda: print("ner"))
+def left():
+    global x
+    x = "vänster"
 
-keyboard.add_hotkey("d",  lambda: print("höger"))
-keyboard.add_hotkey("right arrow",  lambda: print("höger"))
+def right():
+    global x
+    x = "höger"
+
+def down():
+    global x
+    x = "ner"
+
+keyboard.add_hotkey("w",  lambda: up())
+keyboard.add_hotkey("up arrow",  lambda: up())
+
+keyboard.add_hotkey("a",  lambda: left())
+keyboard.add_hotkey("left arrow",  lambda: left())
+
+keyboard.add_hotkey("s",  lambda: down())
+keyboard.add_hotkey("down arrow",  lambda: down())
+
+keyboard.add_hotkey("d",  lambda: right())
+keyboard.add_hotkey("right arrow",  lambda: right())
 
 
 keyboard.add_hotkey("i",  lambda: print("""
@@ -32,6 +51,11 @@ q för att plocka upp items i ett rum
 """))
 
 
-while True:
 
+while True:
+    if x != "":
+        print(x)
+        time.sleep(5)
+        x = ""
+        
     pass

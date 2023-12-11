@@ -1,6 +1,6 @@
 import fade
 
-mainMenuText = """
+mainMenuText = r"""
 
 
 
@@ -27,8 +27,18 @@ mainMenuText = """
 """
 startGameText = "                                                      Press enter to start game"
 
-def standardPrint(*text):
-    print(fade.greenblue(mainMenuText))
+def printMainMenu():
+    """Skriv ut main menyn och vänta tills spelaren vill börja"""
+
+    standardPrint(fade.greenblue(mainMenuText))
     input(startGameText)
 
-standardPrint()
+def standardPrint(*sections):
+    """Standardiserad print funktion för hela programmet
+    
+    :*sections: sektioner med all information som ska skrivas ut"""
+
+    for section in sections:
+        print(section)
+
+    print('\n')

@@ -1,6 +1,6 @@
 '''Fil för standardiserade riktningar'''
 
-forward = 'framåt'
-downward = 'bakåt'
-right = 'till höger'
-left = 'till vänster'
+up = 'till vänster'
+down = 'till höger'
+right = 'framåt'
+left = 'bakåt'

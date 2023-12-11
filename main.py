@@ -1,10 +1,12 @@
 '''Main fil'''
 
-# Imports
+# Importer
 import logging
 
 import items
 import level
+import IO
+from IO import standardPrint
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -23,13 +25,30 @@ file_handler.setFormatter(formatter)
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 
-# Fucntions
+# Funktioner
 def main():
     ''''Main funktion'''
 
+    # Starta upp programmet med objekt och variabler
     game_level = level.level()
-    current_tile = game_level.get_tile(1, 3)
+    current_tile = game_level.get_tile(2, 1)
     logger.info('level created')
+
+    # Börja skriva ut saker till användaren
+    IO.printMainMenu()
+
+    #TODO printa ut information om kontroller och allt annat som ska vara med
+    # standardPrint()
+
+    #TODO
+    # Skriv ut nuvarande tile och ev. information om vilka som ligger i närheten
+    standardPrint(current_tile.description[0], *game_level.format_directions(current_tile))
+
+    # Spelets primära loop
+    # logger.info('Startar loopen')
+    # while True:
+        # current_tile.explored = True
+    #     pass
 
 if __name__ == '__main__':
     main()

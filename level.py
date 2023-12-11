@@ -18,6 +18,8 @@ class Tile():
         self.findable_items = tuple(findable_items)
         self.actions = tuple(actions)
 
+        self.explored = False
+
 class CaveTile(Tile):
     '''Subklass för pussel tiles i grottan'''
     def __init__(self,
@@ -41,10 +43,10 @@ def create_level() -> tuple[tuple]:
     hall = Tile(('right', 'down'))
     kitchen = Tile(('left'))
 
-    turtle = Tile(('down'), (items.goldenSeaweed))
+    turtle = Tile(('down'), (items.golden_seaweed))
     cottege_entrance = Tile(('up', 'down'))
     lake = Tile(('right', 'down'))
-    parrot = Tile(('left'), actions=('Prata med papegoja'))
+    parrot = Tile(('left'), actions='Prata med papegoja')
 
     base = Tile(('up', 'down', 'right'))
     jungle1 = Tile(('up', 'down', 'right', 'left'))
@@ -56,7 +58,7 @@ def create_level() -> tuple[tuple]:
     cave_1 = CaveTile(('left'), (items.torch))
 
     cave_2 = CaveTile(('up'), (items.torch))
-    hidden_cave = Tile(('up', 'right'), findable_items=(items.hatchet))
+    hidden_cave = Tile(('up', 'right'), findable_items=items.hatchet)
 
     return (
         (None, hall, kitchen, None),

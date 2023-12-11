@@ -8,21 +8,21 @@ class Tile():
 
     def __init__(self,
                  avalible_directions: tuple,
-                 useable_items: tuple = tuple(None),
-                 actions: tuple = tuple(None),
-                 findable_items: tuple = tuple(None)
+                 useable_items: tuple = tuple(),
+                 actions: tuple = tuple(),
+                 findable_items: tuple = tuple()
                  ) -> None:
 
-        self.avalible_directions = avalible_directions
-        self.useable_items = useable_items
-        self.findable_items = findable_items
-        self.actions = actions
+        self.avalible_directions = tuple(avalible_directions)
+        self.useable_items = tuple(useable_items)
+        self.findable_items = tuple(findable_items)
+        self.actions = tuple(actions)
 
 class CaveTile(Tile):
     '''Subklass för pussel tiles i grottan'''
     def __init__(self,
                  avalible_directions: tuple,
-                 useable_items: tuple = tuple(None)
+                 useable_items: tuple = tuple()
                  ) -> None:
         
         super().__init__(avalible_directions, useable_items)

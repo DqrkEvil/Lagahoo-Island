@@ -1,4 +1,5 @@
 goldenSeaweed = 'guldigt sjögräs'
-showel = 'spade'
+shovel = 'spade'
 torch = 'fackla'
 dynamite = 'dynamit'
+hatchet = 'yxa'

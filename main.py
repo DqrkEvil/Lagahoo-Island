@@ -27,7 +27,9 @@ logger.addHandler(file_handler)
 def main():
     ''''Main funktion'''
 
-    logger.info('Testing logger')
+    game_level = level.level()
+    current_tile = game_level.get_tile(1, 3)
+    logger.info('level created')
 
 if __name__ == '__main__':
     main()

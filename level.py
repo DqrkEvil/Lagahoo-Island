@@ -1,4 +1,4 @@
-'''Tile klasser'''
+'''Hanterar allting som har med kartan att göra'''
 
 import items
 import directions
@@ -19,7 +19,7 @@ class Tile():
         '''
         :x: tile koordinat
         :y: tile koordinat
-        :description: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. beskrivningen av tiles man kan gå till
+        :description: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. om man ser denna tile från en bredvid
         :avalible_directions: alla vägar att gå från denna tile
         :useable_items: items som går att använda på denna tile
         :actions: alla möjliga aktiviteter på denna tile
@@ -46,11 +46,12 @@ class CavePuzzleTile(Tile):
                  avalible_directions: tuple,
                  useable_items: tuple = tuple(),
                  actions: tuple = tuple(),
-                 findable_items: tuple = tuple()) -> None:
+                 findable_items: tuple = tuple()
+                 ) -> None:
         '''
         :x: tile koordinat
         :y: tile koordinat
-        :description: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. beskrivningen av tiles man kan gå till
+        :description: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. om man ser denna tile från en bredvid
         :avalible_directions: alla vägar att gå från denna tile
         :useable_items: items som går att använda på denna tile
         :actions: alla möjliga aktiviteter på denna tile
@@ -60,12 +61,12 @@ class CavePuzzleTile(Tile):
 
         self.is_torch_lit = False
 
-    def light_torch(self):
+    def light_torch(self) -> None:
         '''Tänd facklan på tilen'''
 
         self.is_torch_lit = True
 
-class level():
+class Level():
     '''Klass för att hantera kartan'''
 
     def __init__(self) -> None:
@@ -74,6 +75,7 @@ class level():
     def create_level(self):
         '''Skapa kartan för spelet'''
 
+        # Rad 1
         hall = Tile(
             2, 1,
             ('Du är i hallen av stugan', 'Du ser stugans hall %(direction)s'),
@@ -85,7 +87,7 @@ class level():
             (directions.left,),
             findable_items=(items.torch,))
 
-        # Ny rad
+        # Rad 2
         turtle = Tile(
             1, 2,
             ('Du står på stranden, nära dig ligger en sköldpadda', '%(direction)s ligger en sköldpadda'),
@@ -108,7 +110,7 @@ class level():
             (directions.left,),
             actions=('Prata med papegoja',))
 
-        # Ny rad
+        # Rad 3
         base = Tile(
             1, 3,
             ('beskrivning', 'vad man ser från en närliggande tile'),
@@ -126,7 +128,7 @@ class level():
             ('hatchet',),
             ('Prata med apan',))
 
-        # Ny rad
+        # Rad 4
         beach = Tile(
             1, 4,
             ('beskrivning', 'vad man ser från en närliggande tile'),
@@ -148,7 +150,7 @@ class level():
             (directions.left,),
             (items.torch,))
 
-        # Ny rad
+        # Rad 5
         cave_2 = CavePuzzleTile(
             3, 5,
             ('beskrivning', 'vad man ser från en närliggande tile'),
@@ -161,6 +163,7 @@ class level():
             (directions.up, directions.right),
             findable_items=(items.hatchet,))
 
+        # Skapa kartan med alla tiles
         self.level = (
             (None, hall, kitchen, None),
             (turtle, cottege_entrance, lake, parrot),
@@ -169,17 +172,19 @@ class level():
             (None, None, cave_2, hidden_cave)
         )
 
-    def get_tile(self, x: int, y: int) -> Tile:
+    def get_tile(self, x: int, y: int) -> Tile | CavePuzzleTile:
         '''Tile objekt vid koordinat x, y. 1, 1 är övre vänstra hörnet'''
 
         return self.level[y-1][x-1]
 
     def format_directions(self, tile: Tile) -> tuple:
         '''Hämta beskrivningar från närliggande tiles'''
+
         descriptions = []
 
         for direction in tile.avalible_directions:
 
+            # Hämta närliggande tile
             if direction == directions.up:
                 adjacent_tile = self.get_tile(tile.x, tile.y - 1)
 
@@ -191,6 +196,10 @@ class level():
 
             elif direction == directions.left:
                 adjacent_tile = self.get_tile(tile.x - 1, tile.y)
+
+            # Om det inte finns någon beskrivning
+            if not adjacent_tile.description[1]:
+                continue
 
             descriptions.append(adjacent_tile.description[1] % {'direction': direction})
 

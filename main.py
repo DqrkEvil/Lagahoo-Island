@@ -30,8 +30,8 @@ def main():
     ''''Main funktion'''
 
     # Starta upp programmet med objekt och variabler
-    game_level = level.level()
-    current_tile = game_level.get_tile(2, 1)
+    game_level = level.Level()
+    current_tile = game_level.get_tile(1, 3)
     logger.info('level created')
 
     # Börja skriva ut saker till användaren

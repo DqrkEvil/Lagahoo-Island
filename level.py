@@ -101,29 +101,29 @@ class Level():
 
         lake = Tile(
             3, 2,
-            ('beskrivning', 'en sjö glittrar %(direction)s från dig'),
+            ('Du står brevid en sjö', 'En sjö glittrar %(direction)s från dig'),
             (directions.right, directions.down))
         
         parrot = Tile(
             4, 2,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('Du ser en papegoja som ser väldigt prat glad ut \n*papegojan kanske ger dig något föremål om du hjälper han*', 'Du ser en papegoja %(direction)s om dig '),
             (directions.left,),
             actions=('Prata med papegoja',))
 
         # Rad 3
         base = Tile(
             1, 3,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('Du är tillbaka till där du vaknade upp brevid den nu slocknade lägerelden', 'Du ser en liten lägereld som nu har slocknat till %(direction)s, det är där du vaknade upp '),
             (directions.up, directions.down, directions.right))
 
         jungle1 = Tile(
             2, 3,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('Du befinner dig i jungeln, det finns iget märkvärdigt här', 'Du ser en öppning bland träden till %(direction)s om dig'),
             (directions.up, directions.down, directions.right, directions.left))
 
         monkey = Tile(
             3, 3,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('Du ser en apa som står på några lådor, \n*hmmm det kanske finns något i lådorna*', 'vad man ser från en närliggande tile'),
             (directions.up, directions.left),
             ('hatchet',),
             ('Prata med apan',))
@@ -131,35 +131,35 @@ class Level():
         # Rad 4
         beach = Tile(
             1, 4,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('du ser inget speciellt förutom något du inte kan identifiera som sticker ut ur sanden \n *om jag har en spade kanske jag hade kunnat gräva upp det*', 'Stranden fortsätter %(direction)s'),
             (directions.up), (items.shovel))
 
         mountain = Tile(
             2, 4,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('Du finner dig högt upp i bergen, oj va kalt det var här', 'Du ser några höga berg %(direction)s om dig'),
             (directions.up, directions.right))
 
         cave_entrance = Tile(
             3, 4,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('Du går in i grottan med din nyligt tända fackla', 'du ser ingången till grottan %(direction)s'),
             (directions.down, directions.right, directions.left))
 
         cave_1 = CavePuzzleTile(
             4, 4,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('Du ser en ganska svag vägg här \n*jag hade säkert kunna spränga denna väggen om jag hade lite dynamit*', ''),
             (directions.left,),
             (items.torch,))
 
         # Rad 5
         cave_2 = CavePuzzleTile(
             3, 5,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('du ser inget som hade kunnat hjälpa dig här, bäst att bara gå tillbaka', 'du kollar längre in i grottan %(direction)s och ser inget som ser ut att vara till hjälp'),
             (directions.up,),
             (items.torch,))
 
         hidden_cave = Tile(
             4, 5,
-            ('beskrivning', 'vad man ser från en närliggande tile'),
+            ('du ser en yxa på en pedistal \n*denna kan man nog använda för att ta sönder obejekt gjort av trä*', 'du kollar in i väggen'),
             (directions.up, directions.right),
             findable_items=(items.hatchet,))
 

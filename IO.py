@@ -1,37 +1,67 @@
+import logging
+
 import fade
+import keyboard
 
-mainMenuText = r"""
+import directions
+import text
 
+logger = logging.getLogger('__main__')
 
+# Inputs
+class Controls():
+    '''Klass för att hantera spelarens inputs'''
 
+    def __init__(self) -> None:
+        self.add_hotkeys()
 
-                            ┌───────────────────────────────────────────────────────────────────────────────┐
-                            │                                                                               │
-                            │  __          ___       _______      ___       __    __    ______     ______   │
-                            │ |  |        /   \     /  _____|    /   \     |  |  |  |  /  __  \   /  __  \  │
-                            │ |  |       /  ^  \   |  |  __     /  ^  \    |  |__|  | |  |  |  | |  |  |  | │
-                            │ |  |      /  /_\  \  |  | |_ |   /  /_\  \   |   __   | |  |  |  | |  |  |  | │
-                            │ |  `----./  _____  \ |  |__| |  /  _____  \  |  |  |  | |  `--'  | |  `--'  | │
-                            │ |_______/__/     \__\ \______| /__/     \__\ |__|  |__|  \______/   \______/  │
-                            │                                                                               │
-                            │          __       _______. __          ___      .__   __.  _______            │
-                            │         |  |     /       ||  |        /   \     |  \ |  | |       \           │
-                            │         |  |    |   (----`|  |       /  ^  \    |   \|  | |  .--.  |          │
-                            │         |  |     \   \    |  |      /  /_\  \   |  . `  | |  |  |  |          │
-                            │         |  | .----)   |   |  `----./  _____  \  |  |\   | |  '--'  |          │
-                            │         |__| |_______/    |_______/__/     \__\ |__| \__| |_______/           │
-                            │                                                                               │
-                            └───────────────────────────────────────────────────────────────────────────────┘
+        self.last_key = None
 
-                            
-"""
-startGameText = "                                                      Press enter to start game"
+    def await_input(self) -> str:
+        '''Vänta tills användaren ger en input'''
 
+        # Spara den senast nedtryckta knappen
+        last_key = self.last_key
+
+        # Vänta tills en annan knapp trycks ner
+        while True:
+            if self.last_key != last_key:
+                return self.last_key
+
+    def change_key(self, key: str) -> None:
+        '''Uppdatera variablen med den senaste nedtryckta knappen'''
+
+        self.last_key = key
+
+    def add_hotkeys(self) -> None:
+        '''Lägg till hotkeys för att kontrollera'''
+
+        keyboard.add_hotkey("w", lambda: self.change_key(directions.up))
+        keyboard.add_hotkey("up arrow", lambda: self.change_key(directions.up))
+
+        keyboard.add_hotkey("s", lambda: self.change_key(directions.down))
+        keyboard.add_hotkey("down arrow", lambda: self.change_key(directions.down))
+
+        keyboard.add_hotkey("d", lambda: self.change_key(directions.right))
+        keyboard.add_hotkey("right arrow", lambda: self.change_key(directions.right))
+
+        keyboard.add_hotkey("a", lambda: self.change_key(directions.left))
+        keyboard.add_hotkey("left arrow", lambda: self.change_key(directions.left))
+
+        keyboard.add_hotkey("i", lambda: self.change_key("info"))
+
+        keyboard.add_hotkey("m", lambda: self.change_key("map"))
+
+        keyboard.add_hotkey("e", lambda: self.change_key("use item"))
+
+        keyboard.add_hotkey("q", lambda: self.change_key("pickup"))
+
+# Outputs
 def printMainMenu():
     """Skriv ut main menyn och vänta tills spelaren vill börja"""
 
-    standardPrint(fade.greenblue(mainMenuText))
-    input(startGameText)
+    standardPrint(fade.greenblue(text.mainMenuText))
+    input(text.startGameText)
 
 def standardPrint(*sections):
     """Standardiserad print funktion för hela programmet

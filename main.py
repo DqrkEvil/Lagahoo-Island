@@ -3,9 +3,10 @@
 # Importer
 import logging
 
-import items
-import level
 import IO
+import directions
+import level
+import text
 from IO import standardPrint
 
 logger = logging.getLogger(__name__)
@@ -17,7 +18,7 @@ console_handler.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler('app.log', 'w', encoding='UTF-8')
 file_handler.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter('%(filename)s - line: %(lineno)-3d - %(levelname)-9s : %(message)s') # logging format: https://stackoverflow.com/questions/57204920/how-to-properly-format-the-python-logging-formatter
+formatter = logging.Formatter('%(asctime)s in %(filename)s - line: %(lineno)-3d - %(levelname)-9s : %(message)s', '%Y-%m-%d %H:%M:%S')
 
 console_handler.setFormatter(formatter)
 file_handler.setFormatter(formatter)
@@ -32,23 +33,57 @@ def main():
     # Starta upp programmet med objekt och variabler
     game_level = level.Level()
     current_tile = game_level.get_tile(1, 3)
-    logger.info('level created')
+    logger.info('Karta genererad')
+
+    # 
+    controls = IO.Controls()
+    controls.add_hotkeys()
+    logger.info('Kontroller skapade')
 
     # Börja skriva ut saker till användaren
     IO.printMainMenu()
 
-    #TODO printa ut information om kontroller och allt annat som ska vara med
-    # standardPrint()
-
-    #TODO
-    # Skriv ut nuvarande tile och ev. information om vilka som ligger i närheten
-    standardPrint(current_tile.description[0], *game_level.format_directions(current_tile))
-
+    #TODO printa ut information om lore och kontroller
+    pass
+    
     # Spelets primära loop
     # logger.info('Startar loopen')
-    # while True:
-        # current_tile.explored = True
-    #     pass
+    while True:
+        current_tile.explored = True
+        standardPrint(current_tile.description[0], *game_level.format_directions(current_tile))
+
+        key = controls.await_input()
+
+        if key == 'info':
+            standardPrint(text.controlInfo)
+        
+        elif key == 'map':
+            #TODO Print map
+            standardPrint('map opened')
+        
+        elif key == 'use item':
+            #TODO Print numbered list of items in player inventory
+            #TODO let player choose one with a number
+            #TODO try using that item on tile
+            standardPrint('item used')
+
+        elif key == 'pickup':
+            #TODO remove item from tile object
+            #TODO add item to inventory
+            standardPrint('item picked up')
+
+        if key in current_tile.avalible_directions:
+            if key == directions.up:
+                current_tile = game_level.get_tile(current_tile.x, current_tile.y - 1)
+
+            if key == directions.down:
+                current_tile = game_level.get_tile(current_tile.x, current_tile.y + 1)
+
+            if key == directions.right:
+                current_tile = game_level.get_tile(current_tile.x + 1, current_tile.y)
+
+            if key == directions.left:
+                current_tile = game_level.get_tile(current_tile.x - 1, current_tile.y)
 
 if __name__ == '__main__':
     main()

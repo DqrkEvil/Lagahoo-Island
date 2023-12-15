@@ -54,6 +54,8 @@ def main():
 
         key = controls.await_input()
 
+        logger.debug(f'User input taken: {key}')
+
         if key == 'info':
             standardPrint(text.controlInfo)
         
@@ -84,6 +86,10 @@ def main():
 
             if key == directions.left:
                 current_tile = game_level.get_tile(current_tile.x - 1, current_tile.y)
+
+        # Om man trycker på en tangent som inte leder någonstans
+        else:
+            standardPrint('Du kan inte gå åt det hållet')
 
 if __name__ == '__main__':
     main()

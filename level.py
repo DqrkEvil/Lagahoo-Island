@@ -132,7 +132,8 @@ class Level():
         beach = Tile(
             1, 4,
             ('du ser inget speciellt förutom något du inte kan identifiera som sticker ut ur sanden \n *om jag har en spade kanske jag hade kunnat gräva upp det*', 'Stranden fortsätter %(direction)s'),
-            (directions.up), (items.shovel))
+            (directions.up,),
+            (items.shovel))
 
         mountain = Tile(
             2, 4,
@@ -144,14 +145,14 @@ class Level():
             ('Du går in i grottan med din nyligt tända fackla', 'du ser ingången till grottan %(direction)s'),
             (directions.down, directions.right, directions.left))
 
-        cave_1 = CavePuzzleTile(
+        cave_1 = Tile(
             4, 4,
             ('Du ser en ganska svag vägg här \n*jag hade säkert kunna spränga denna väggen om jag hade lite dynamit*', ''),
             (directions.left,),
             (items.torch,))
 
         # Rad 5
-        cave_2 = CavePuzzleTile(
+        cave_2 = Tile(
             3, 5,
             ('du ser inget som hade kunnat hjälpa dig här, bäst att bara gå tillbaka', 'du kollar längre in i grottan %(direction)s och ser inget som ser ut att vara till hjälp'),
             (directions.up,),

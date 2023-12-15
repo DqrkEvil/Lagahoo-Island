@@ -1,4 +1,6 @@
 import logging
+import os
+import time
 
 import fade
 import keyboard
@@ -20,12 +22,12 @@ class Controls():
     def await_input(self) -> str:
         '''Vänta tills användaren ger en input'''
 
-        # Spara den senast nedtryckta knappen
-        last_key = self.last_key
+        # Återställ variabeln
+        self.last_key = None
 
         # Vänta tills en annan knapp trycks ner
         while True:
-            if self.last_key != last_key:
+            if self.last_key is not None:
                 return self.last_key
 
     def change_key(self, key: str) -> None:
@@ -36,17 +38,17 @@ class Controls():
     def add_hotkeys(self) -> None:
         '''Lägg till hotkeys för att kontrollera'''
 
-        keyboard.add_hotkey("w", lambda: self.change_key(directions.up))
-        keyboard.add_hotkey("up arrow", lambda: self.change_key(directions.up))
+        keyboard.add_hotkey("w", lambda: self.change_key(directions.right))
+        keyboard.add_hotkey("up arrow", lambda: self.change_key(directions.right))
 
-        keyboard.add_hotkey("s", lambda: self.change_key(directions.down))
-        keyboard.add_hotkey("down arrow", lambda: self.change_key(directions.down))
+        keyboard.add_hotkey("s", lambda: self.change_key(directions.left))
+        keyboard.add_hotkey("down arrow", lambda: self.change_key(directions.left))
 
-        keyboard.add_hotkey("d", lambda: self.change_key(directions.right))
-        keyboard.add_hotkey("right arrow", lambda: self.change_key(directions.right))
+        keyboard.add_hotkey("d", lambda: self.change_key(directions.down))
+        keyboard.add_hotkey("right arrow", lambda: self.change_key(directions.down))
 
-        keyboard.add_hotkey("a", lambda: self.change_key(directions.left))
-        keyboard.add_hotkey("left arrow", lambda: self.change_key(directions.left))
+        keyboard.add_hotkey("a", lambda: self.change_key(directions.up))
+        keyboard.add_hotkey("left arrow", lambda: self.change_key(directions.up))
 
         keyboard.add_hotkey("i", lambda: self.change_key("info"))
 
@@ -61,7 +63,9 @@ def printMainMenu():
     """Skriv ut main menyn och vänta tills spelaren vill börja"""
 
     standardPrint(fade.greenblue(text.mainMenuText))
+    time.sleep(3)
     input(text.startGameText)
+    os.system('cls')
 
 def standardPrint(*sections):
     """Standardiserad print funktion för hela programmet

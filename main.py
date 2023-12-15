@@ -50,7 +50,7 @@ def main():
     # logger.info('Startar loopen')
     while True:
         current_tile.explored = True
-        standardPrint(current_tile.description[0], *game_level.format_directions(current_tile))
+        standardPrint(current_tile.descriptions[0], *game_level.format_directions(current_tile))
 
         key = controls.await_input()
 

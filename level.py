@@ -10,7 +10,7 @@ class Tile():
     def __init__(self,
                  x: int,
                  y: int,
-                 description: tuple[str, str],
+                 descriptions: tuple[str],
                  avalible_directions: tuple,
                  useable_items: tuple = tuple(),
                  actions: tuple = tuple(),
@@ -19,7 +19,7 @@ class Tile():
         '''
         :x: tile koordinat
         :y: tile koordinat
-        :description: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. om man ser denna tile från en bredvid
+        :descriptions: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. om man ser denna tile från en bredvid
         :avalible_directions: alla vägar att gå från denna tile
         :useable_items: items som går att använda på denna tile
         :actions: alla möjliga aktiviteter på denna tile
@@ -28,43 +28,13 @@ class Tile():
         self.x = x
         self.y = y
 
-        self.description = description
+        self.descriptions = descriptions
         self.avalible_directions = avalible_directions
         self.useable_items = useable_items
         self.findable_items = findable_items
         self.actions = actions
 
         self.explored = False
-
-class CavePuzzleTile(Tile):
-    '''Subklass för pussel tiles i grottan'''
-
-    def __init__(self,
-                 x: int,
-                 y: int,
-                 description: tuple[str, str],
-                 avalible_directions: tuple,
-                 useable_items: tuple = tuple(),
-                 actions: tuple = tuple(),
-                 findable_items: tuple = tuple()
-                 ) -> None:
-        '''
-        :x: tile koordinat
-        :y: tile koordinat
-        :description: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. om man ser denna tile från en bredvid
-        :avalible_directions: alla vägar att gå från denna tile
-        :useable_items: items som går att använda på denna tile
-        :actions: alla möjliga aktiviteter på denna tile
-        :findable_items: saker som går att ta från denna tile'''
-
-        super().__init__(x, y, description, avalible_directions, useable_items, actions, findable_items)
-
-        self.is_torch_lit = False
-
-    def light_torch(self) -> None:
-        '''Tänd facklan på tilen'''
-
-        self.is_torch_lit = True
 
 class Level():
     '''Klass för att hantera kartan'''
@@ -96,7 +66,7 @@ class Level():
 
         cottege_entrance = Tile(
             2, 2,
-            ('Du står i jungeln bredvid en liten stuga, dörren står på glänt', 'Det finns en stuga %(direction)s'),
+            ('Du står i jungeln bredvid en liten stuga, dörren står på glänt', 'Det finns en stuga %(direction)s', 'Ytterdörren finns %(direction)s'),
             (directions.up, directions.down))
 
         lake = Tile(
@@ -147,7 +117,7 @@ class Level():
 
         cave_1 = Tile(
             4, 4,
-            ('Du ser en ganska svag vägg här \n*jag hade säkert kunna spränga denna väggen om jag hade lite dynamit*', ''),
+            ('Du ser en ganska svag vägg här \n*jag hade säkert kunna spränga denna väggen om jag hade lite dynamit*', None),
             (directions.left,),
             (items.torch,))
 
@@ -173,7 +143,7 @@ class Level():
             (None, None, cave_2, hidden_cave)
         )
 
-    def get_tile(self, x: int, y: int) -> Tile | CavePuzzleTile:
+    def get_tile(self, x: int, y: int) -> Tile:
         '''Tile objekt vid koordinat x, y. 1, 1 är övre vänstra hörnet'''
 
         return self.level[y-1][x-1]
@@ -184,7 +154,8 @@ class Level():
         descriptions = []
 
         for direction in tile.avalible_directions:
-
+            
+            #* Standard beskrivningar
             # Hämta närliggande tile
             if direction == directions.up:
                 adjacent_tile = self.get_tile(tile.x, tile.y - 1)
@@ -199,9 +170,15 @@ class Level():
                 adjacent_tile = self.get_tile(tile.x - 1, tile.y)
 
             # Om det inte finns någon beskrivning
-            if not adjacent_tile.description[1]:
+            if not adjacent_tile.descriptions[1]:
                 continue
 
-            descriptions.append(adjacent_tile.description[1] % {'direction': direction})
+            #* Några speciella beskrivningar
+            # Från insidan av huset mot utsidan
+            if tile.x == 2 and tile.y == 1 and direction == directions.down:
+                descriptions.append(adjacent_tile.descriptions[2] % {'direction': direction})
+                continue
+
+            descriptions.append(adjacent_tile.descriptions[1] % {'direction': direction})
 
         return descriptions

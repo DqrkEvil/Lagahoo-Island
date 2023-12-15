@@ -83,7 +83,7 @@ class Level():
         # Rad 3
         base = Tile(
             1, 3,
-            ('Du är tillbaka till där du vaknade upp brevid den nu slocknade lägerelden', 'Du ser en liten lägereld som nu har slocknat till %(direction)s, det är där du vaknade upp '),
+            ('Du är tillbaka till där du vaknade upp brevid den nu slocknade lägerelden', 'Du ser en liten lägereld som nu har slocknat %(direction)s, det är där du vaknade upp '),
             (directions.up, directions.down, directions.right))
 
         jungle1 = Tile(
@@ -93,7 +93,7 @@ class Level():
 
         monkey = Tile(
             3, 3,
-            ('Du ser en apa som står på några lådor, \n*hmmm det kanske finns något i lådorna*', 'vad man ser från en närliggande tile'),
+            ('Du ser en apa som står på några lådor, \n*hmmm det kanske finns något i lådorna*', 'du ser en apa som står på några lådor %(direction)s'),
             (directions.up, directions.left),
             ('hatchet',),
             ('Prata med apan',))

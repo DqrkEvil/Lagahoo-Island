@@ -5,6 +5,7 @@ import logging
 import time
 
 import IO
+import items
 import directions
 import level
 import text
@@ -70,9 +71,12 @@ def main():
             standardPrint('item used')
 
         elif key == 'pickup':
-            #TODO remove item from tile object
-            #TODO add item to inventory
-            standardPrint('item picked up')
+            if current_tile.findable_item:
+                item = items.pickup_item(current_tile)
+                standardPrint(f'Plockade upp en {item}')
+            
+            else:
+                standardPrint('Det finns inget att plocka upp här')
 
         elif key in current_tile.avalible_directions:
             if key == directions.up:

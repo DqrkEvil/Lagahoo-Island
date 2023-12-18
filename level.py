@@ -14,7 +14,7 @@ class Tile():
                  avalible_directions: tuple,
                  useable_items: tuple = tuple(),
                  actions: tuple = tuple(),
-                 findable_items: tuple = tuple()
+                 findable_item: str | None = None
                  ) -> None:
         '''
         :x: tile koordinat
@@ -31,7 +31,7 @@ class Tile():
         self.descriptions = descriptions
         self.avalible_directions = avalible_directions
         self.useable_items = useable_items
-        self.findable_items = findable_items
+        self.findable_item = findable_item
         self.actions = actions
 
         self.explored = False
@@ -55,7 +55,7 @@ class Level():
             3, 1,
             ('Du är i stugans kök', 'Det finns ett kök %(direction)s'),
             (directions.left,),
-            findable_items=(items.torch,))
+            findable_item=items.torch)
 
         # Rad 2
         turtle = Tile(
@@ -73,7 +73,7 @@ class Level():
             3, 2,
             ('Du står brevid en sjö', 'En sjö glittrar %(direction)s från dig'),
             (directions.right, directions.down))
-        
+
         parrot = Tile(
             4, 2,
             ('Du ser en papegoja som ser väldigt prat glad ut \n*papegojan kanske ger dig något föremål om du hjälper han*', 'Du ser en papegoja %(direction)s om dig '),
@@ -132,7 +132,7 @@ class Level():
             4, 5,
             ('Du ser en yxa på en pedistal \n*denna kan man nog använda för att ta sönder obejekt gjort av trä*', 'Du ser ett litet rum %(direction)s som inte var där tidigare'),
             (directions.up, directions.right),
-            findable_items=(items.hatchet,))
+            findable_item=items.hatchet)
 
         # Skapa kartan med alla tiles
         self.level = (
@@ -154,7 +154,7 @@ class Level():
         descriptions = []
 
         for direction in tile.avalible_directions:
-            
+
             #* Standard beskrivningar
             # Hämta närliggande tile
             if direction == directions.up:

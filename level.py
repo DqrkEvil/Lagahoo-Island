@@ -97,6 +97,12 @@ class Level():
             (directions.up, directions.left),
             ('hatchet',),
             ('Prata med apan',))
+        
+        jungle2 = Tile(
+            4, 3,
+            ("Du ser en gravsten med en spade stickande ut från den","Du ser en gravsten %(direction)s"),
+            (directions.left,),
+            findable_item=items.shovel)
 
         # Rad 4
         beach = Tile(
@@ -122,6 +128,11 @@ class Level():
             (items.torch,))
 
         # Rad 5
+        spikes = Tile(
+            2,5,
+            ("Du hoppar ner för klippan och blir spetsad av spikarna där nere","Du kollar ner för klippan %(direction)s om dig och ser några spikar \n snälla hoppa inte"),
+            (None,))
+
         cave_2 = Tile(
             3, 5,
             ('Du ser inget som hade kunnat hjälpa dig här, bäst att bara gå tillbaka', 'Grottan fortsätter %(direction)s'),
@@ -138,9 +149,9 @@ class Level():
         self.level = (
             (None, hall, kitchen, None),
             (turtle, cottege_entrance, lake, parrot),
-            (base, jungle1, monkey, None),
+            (base, jungle1, monkey, jungle2),
             (beach, mountain, cave_entrance, cave_1),
-            (None, None, cave_2, hidden_cave)
+            (None, spikes, cave_2, hidden_cave)
         )
 
     def get_tile(self, x: int, y: int) -> Tile:

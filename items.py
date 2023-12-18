@@ -2,6 +2,7 @@
 
 inventory = []
 
+# Föremål
 golden_seaweed = 'guldigt sjögräs'
 shovel = 'spade'
 torch = 'fackla'

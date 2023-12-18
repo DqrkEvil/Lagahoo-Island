@@ -93,7 +93,7 @@ class Level():
 
         monkey = Tile(
             3, 3,
-            ('Du ser en apa som står på några lådor, \n*hmmm det kanske finns något i lådorna*', 'du ser en apa som står på några lådor %(direction)s'),
+            ('Du ser en apa som står på några lådor, \n*hmmm det kanske finns något i lådorna*', 'Du ser en apa som står på några lådor %(direction)s'),
             (directions.up, directions.left),
             ('hatchet',),
             ('Prata med apan',))
@@ -101,7 +101,7 @@ class Level():
         # Rad 4
         beach = Tile(
             1, 4,
-            ('du ser inget speciellt förutom något du inte kan identifiera som sticker ut ur sanden \n *om jag har en spade kanske jag hade kunnat gräva upp det*', 'Stranden fortsätter %(direction)s'),
+            ('Du ser inget speciellt förutom något du inte kan identifiera som sticker ut ur sanden \n *om jag har en spade kanske jag hade kunnat gräva upp det*', 'Stranden fortsätter %(direction)s'),
             (directions.up,),
             (items.shovel))
 
@@ -112,25 +112,25 @@ class Level():
 
         cave_entrance = Tile(
             3, 4,
-            ('Du går in i grottan med din nyligt tända fackla', 'du ser ingången till grottan %(direction)s'),
+            ('Du går in i grottan med din nyligt tända fackla', 'Du ser ingången till grottan %(direction)s'),
             (directions.down, directions.right, directions.left))
 
         cave_1 = Tile(
             4, 4,
-            ('Du ser en ganska svag vägg här \n*jag hade säkert kunna spränga denna väggen om jag hade lite dynamit*', None),
+            ('Du ser en ganska svag vägg här \n*jag hade säkert kunna spränga denna väggen om jag hade lite dynamit*', 'Grottan fortsätter %(direction)s'),
             (directions.left,),
             (items.torch,))
 
         # Rad 5
         cave_2 = Tile(
             3, 5,
-            ('du ser inget som hade kunnat hjälpa dig här, bäst att bara gå tillbaka', 'du kollar längre in i grottan %(direction)s och ser inget som ser ut att vara till hjälp'),
+            ('Du ser inget som hade kunnat hjälpa dig här, bäst att bara gå tillbaka', 'Grottan fortsätter %(direction)s'),
             (directions.up,),
             (items.torch,))
 
         hidden_cave = Tile(
             4, 5,
-            ('du ser en yxa på en pedistal \n*denna kan man nog använda för att ta sönder obejekt gjort av trä*', 'du kollar in i väggen'),
+            ('Du ser en yxa på en pedistal \n*denna kan man nog använda för att ta sönder obejekt gjort av trä*', 'Du ser ett litet rum %(direction)s som inte var där tidigare'),
             (directions.up, directions.right),
             findable_items=(items.hatchet,))
 

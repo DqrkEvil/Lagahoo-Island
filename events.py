@@ -1,0 +1,1 @@
+'''Plats för alla events'''

@@ -76,26 +76,27 @@ class Level():
 
         parrot = Tile(
             4, 2,
-            ('Du ser en papegoja som ser väldigt prat glad ut \n*papegojan kanske ger dig något föremål om du hjälper han*', 'Du ser en papegoja %(direction)s om dig '),
+            ('Du ser en papegoja som ser väldigt prat glad ut \n*papegojan kanske ger dig något föremål om du hjälper han*', 'Du ser en papegoja %(direction)s om dig'),
             (directions.left,),
             actions=('Prata med papegoja',))
 
         # Rad 3
         base = Tile(
             1, 3,
-            ('Du är tillbaka till där du vaknade upp brevid den nu slocknade lägerelden', 'Du ser en liten lägereld som nu har slocknat %(direction)s, det är där du vaknade upp '),
+            ('Du är tillbaka till där du vaknade upp brevid den nu slocknade lägerelden', 'Du ser en liten lägereld som nu har slocknat %(direction)s, det är där du vaknade upp'),
             (directions.up, directions.down, directions.right))
 
         jungle1 = Tile(
             2, 3,
             ('Du befinner dig i jungeln, det finns iget märkvärdigt här', 'Du ser en öppning bland träden till %(direction)s om dig'),
-            (directions.up, directions.down, directions.right, directions.left))
+            (directions.up, directions.down, directions.right, directions.left)
+            (items.hatchet,))
 
         monkey = Tile(
             3, 3,
             ('Du ser en apa som står på några lådor, \n*hmmm det kanske finns något i lådorna*', 'Du ser en apa som står på några lådor %(direction)s'),
             (directions.up, directions.left),
-            ('hatchet',),
+            (items.hatchet,),
             ('Prata med apan',))
         
         jungle2 = Tile(
@@ -109,7 +110,7 @@ class Level():
             1, 4,
             ('Du ser inget speciellt förutom något du inte kan identifiera som sticker ut ur sanden \n *om jag har en spade kanske jag hade kunnat gräva upp det*', 'Stranden fortsätter %(direction)s'),
             (directions.up,),
-            (items.shovel))
+            (items.shovel,))
 
         mountain = Tile(
             2, 4,
@@ -118,14 +119,14 @@ class Level():
 
         cave_entrance = Tile(
             3, 4,
-            ('Du går in i grottan med din nyligt tända fackla', 'Du ser ingången till grottan %(direction)s'),
+            ("du går in i grottan med din nyligt tända fackla", 'Du ser ingången till grottan %(direction)s'),
             (directions.down, directions.right, directions.left))
 
         cave_1 = Tile(
             4, 4,
             ('Du ser en ganska svag vägg här \n*jag hade säkert kunna spränga denna väggen om jag hade lite dynamit*', 'Grottan fortsätter %(direction)s'),
             (directions.left,),
-            (items.torch,))
+            (items.dynamite,))
 
         # Rad 5
         spikes = Tile(
@@ -136,13 +137,12 @@ class Level():
         cave_2 = Tile(
             3, 5,
             ('Du ser inget som hade kunnat hjälpa dig här, bäst att bara gå tillbaka', 'Grottan fortsätter %(direction)s'),
-            (directions.up,),
-            (items.torch,))
+            (directions.up,))
 
         hidden_cave = Tile(
             4, 5,
             ('Du ser en yxa på en pedistal \n*denna kan man nog använda för att ta sönder obejekt gjort av trä*', 'Du ser ett litet rum %(direction)s som inte var där tidigare'),
-            (directions.up, directions.right),
+            (directions.up,),
             findable_item=items.hatchet)
 
         # Skapa kartan med alla tiles
@@ -162,7 +162,7 @@ class Level():
     def format_directions(self, tile: Tile) -> tuple:
         '''Hämta beskrivningar från närliggande tiles'''
 
-        descriptions = []
+        descriptions = [str]
 
         for direction in tile.avalible_directions:
 
@@ -191,5 +191,8 @@ class Level():
                 continue
 
             descriptions.append(adjacent_tile.descriptions[1] % {'direction': direction})
+
+        # Stooooor bokstav (ifall beskrivningen börjar med "%(direction)s")
+        descriptions = [i.capitalize() for i in descriptions]
 
         return descriptions

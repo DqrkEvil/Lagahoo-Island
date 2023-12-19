@@ -7,6 +7,7 @@ import time
 import IO
 import items
 import directions
+import actions
 import level
 import text
 from IO import standardPrint
@@ -55,26 +56,40 @@ def main():
 
         key = controls.await_input()
 
-        logger.debug(f'User input taken: {key}')
+        logger.info(f'User input taken: {key}')
 
         if key == 'info':
             standardPrint(text.controlInfo)
 
         elif key == 'map':
             #TODO Print map
-            standardPrint('map opened')
+            standardPrint('map opened WIP')
+            logger.info('Opened map')
 
         elif key == 'use item':
-            #TODO Print numbered list of items in player inventory
+
+            useable_items = []
+
+            # Skapa en lista med alla items som går att använda
+            for n, item in enumerate(items.inventory):
+                if item in current_tile.useable_items:
+                    useable_items.append(f'{n}: {item}')
+
+            # Om det fanns några användbara items, srkiv ut dem
+            if useable_items:
+                standardPrint('Du kan använda:\n', *useable_items)
+
             #TODO let player choose one with a number
-            #TODO try using that item on tile
+
+            logger.info(f'Used {item}')
             standardPrint('item used')
 
         elif key == 'pickup':
             if current_tile.findable_item:
                 item = items.pickup_item(current_tile)
-                standardPrint(f'Plockade upp en {item}')
-            
+                logger.info(f'Picked up {item}')
+                standardPrint(f'Du plockade upp: {item}')
+
             else:
                 standardPrint('Det finns inget att plocka upp här')
 

@@ -1,5 +1,6 @@
 '''Fil för alla föremål'''
 
+
 import level
 
 inventory = []
@@ -21,3 +22,12 @@ def pickup_item(current_tile: level.Tile) -> str:
     current_tile.findable_item = None
 
     return item
+
+def use_item(item: str):
+    '''Use item on tile'''
+
+    if item == golden_seaweed:
+        pass
+
+    elif item == shovel:
+        pass

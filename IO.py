@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 import time
 
 import fade
@@ -62,8 +63,8 @@ class Controls():
 def printMainMenu():
     """Skriv ut main menyn och vänta tills spelaren vill börja"""
 
-    standardPrint(fade.greenblue(text.mainMenuText))
-    time.sleep(3)
+    print(fade.greenblue(text.mainMenuText))
+    time.sleep(2)
     input(text.startGameText)
     os.system('cls')
 
@@ -73,6 +74,11 @@ def standardPrint(*sections):
     :*sections: sektioner med all information som ska skrivas ut"""
 
     for section in sections:
-        print(section)
+        for char in section: 
+            # https://replit.com/talk/ask/How-to-make-your-text-appear-fluidly-instead-of-one-big-chunk-in-Python/111394
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(0.04)
+        print('. ')
 
     print('\n')

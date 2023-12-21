@@ -26,8 +26,7 @@ mainMenuText = r"""
 
 startGameText = "                                                      Tryck ENTER för att starta spelet"
 
-preGameLore = """
-Du ligger på den fuktiga sanden, den tropiska luften fyller dina lungor medans du stirrar upp i det djupt mörkblå eviga tomrum fullt av stjärnor. 
+preGameLore = """Du ligger på den fuktiga sanden, den tropiska luften fyller dina lungor medans du stirrar upp i det djupt mörkblå eviga tomrum fullt av stjärnor. 
 **Insert ascii art of stars**
 **Insert sound of waves washing up on the shore**
 Tankarna väller fram; 
@@ -37,8 +36,7 @@ Hur ska jag komma tillbaka till fastlandet?
 Desto mer du ligger och tänker desto tyngre blir ögonlocken.
 Till slut blir det svart."""
 
-controlInfo = """
-Information on kontroller:
+controlInfo = """Information on kontroller:
 
 Använd WASD / piltangenterna för att gå runt
 

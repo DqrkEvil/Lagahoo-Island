@@ -7,7 +7,7 @@ import time
 import IO
 import items
 import directions
-import actions
+# import actions
 import level
 import text
 from IO import standardPrint

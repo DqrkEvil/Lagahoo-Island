@@ -89,7 +89,7 @@ class Level():
         jungle1 = Tile(
             2, 3,
             ('Du befinner dig i jungeln, det finns iget märkvärdigt här', 'Du ser en öppning bland träden till %(direction)s om dig'),
-            (directions.up, directions.down, directions.right, directions.left)
+            (directions.up, directions.down, directions.right, directions.left),
             (items.hatchet,))
 
         monkey = Tile(

@@ -1,5 +1,6 @@
 '''Hanterar allting som har med kartan att göra'''
 
+from typing import Literal
 import items
 import directions
 
@@ -11,7 +12,7 @@ class Tile():
                  x: int,
                  y: int,
                  descriptions: tuple[str],
-                 avalible_directions: tuple,
+                 available_directions: tuple,
                  useable_items: tuple = tuple(),
                  actions: tuple = tuple(),
                  findable_item: str | None = None
@@ -20,7 +21,7 @@ class Tile():
         :x: tile koordinat
         :y: tile koordinat
         :descriptions: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. om man ser denna tile från en bredvid
-        :avalible_directions: alla vägar att gå från denna tile
+        :available_directions: alla vägar att gå från denna tile
         :useable_items: items som går att använda på denna tile
         :actions: alla möjliga aktiviteter på denna tile
         :findable_items: saker som går att ta från denna tile'''
@@ -29,12 +30,21 @@ class Tile():
         self.y = y
 
         self.descriptions = descriptions
-        self.avalible_directions = avalible_directions
+        self.available_directions = available_directions
         self.useable_items = useable_items
         self.findable_item = findable_item
         self.actions = actions
 
         self.explored = False
+
+    def edit_directions(self, method: Literal['add', 'remove'], directions: tuple):
+        '''Edit available directions for this tile'''
+
+        if method == 'add':
+            self.available_directions = (*self.available_directions, *directions)
+
+        if method == 'remove':
+            self.available_directions = tuple(direction for direction in self.available_directions if direction not in directions)
 
 class Level():
     '''Klass för att hantera kartan'''
@@ -164,7 +174,7 @@ class Level():
 
         descriptions = [str]
 
-        for direction in tile.avalible_directions:
+        for direction in tile.available_directions:
 
             #* Standard beskrivningar
             # Hämta närliggande tile

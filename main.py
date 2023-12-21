@@ -21,7 +21,7 @@ logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler('app.log', 'w', encoding='UTF-8')
 file_handler.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter('%(asctime)s in %(filename)s - line: %(lineno)-3d - %(levelname)-9s : %(message)s', '%Y-%m-%d %H:%M:%S')
+formatter = logging.Formatter('%(asctime)s in %(filename)-13s - line: %(lineno)-3d - %(levelname)-9s : %(message)s', '%Y-%m-%d %H:%M:%S')
 
 # console_handler.setFormatter(formatter)
 file_handler.setFormatter(formatter)
@@ -36,12 +36,12 @@ def main():
     # Starta upp programmet med objekt och variabler
     game_level = level.Level()
     current_tile = game_level.get_tile(1, 3)
-    logger.info('Karta genererad')
+    logger.info('Map generated')
 
     # Skapa kontroller
     controls = IO.Controls()
     controls.add_hotkeys()
-    logger.info('Kontroller skapade')
+    logger.info('Controls generated')
 
     # Börja skriva ut saker till användaren
     IO.printMainMenu()
@@ -56,7 +56,7 @@ def main():
 
         key = controls.await_input()
 
-        logger.debug(f'Now on tile {current_tile.x},{current_tile.y}')
+        logger.info(f'Now on tile {current_tile.x},{current_tile.y}')
         logger.info(f'User input taken: {key}')
 
         if key == 'info':

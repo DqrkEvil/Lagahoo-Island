@@ -1,9 +1,12 @@
 '''Fil för alla föremål'''
 
+import logging
+
+import directions
 import IO
 import level
 
-inventory = []
+logger = logging.getLogger('__main__')
 
 # Föremål
 golden_seaweed = 'guldigt sjögräs'
@@ -11,7 +14,10 @@ shovel = 'spade'
 torch = 'fackla'
 dynamite = 'dynamit'
 hatchet = 'yxa'
-materials = "plankor o lianer"
+materials = "plankor och lianer"
+
+# Spelarens inventory
+inventory = []
 
 # Funktioner
 def pickup_item(current_tile: level.Tile) -> str:
@@ -24,7 +30,7 @@ def pickup_item(current_tile: level.Tile) -> str:
 
     return item
 
-def use_item(current_tile: level.Tile, item: str):
+def use_item(current_tile: level.Tile, item: str, game_level: level.Level):
     '''Use item on tile'''
 
     #vad olika items gör när man använder dom på tiles där man kan använda dom
@@ -45,5 +51,7 @@ def use_item(current_tile: level.Tile, item: str):
         inventory.append(materials)
 
     #TODO göra så att man bara kan gå till lake ifall man hjälper apan först
-    elif item == hatchet and current_tile.x == 2:
-        IO.standardPrint("Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dom, som tack flytade apan ur vägen så du nu kan gå vidare")
+    elif item == hatchet and current_tile.x == 3:
+        IO.standardPrint("Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dom, som tack flyttade apan ur vägen så du nu kan gå vidare")
+        current_tile.edit_connections('add', directions.up, game_level)
+        logger.info('Path to lake added')

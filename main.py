@@ -6,7 +6,7 @@ import time
 
 import IO
 import items
-import directions
+# import directions
 # import actions
 import level
 import text
@@ -56,6 +56,7 @@ def main():
 
         key = controls.await_input()
 
+        logger.debug(f'Now on tile {current_tile.x},{current_tile.y}')
         logger.info(f'User input taken: {key}')
 
         if key == 'info':
@@ -73,16 +74,18 @@ def main():
             # Skapa en lista med alla items som går att använda
             for n, item in enumerate(items.inventory):
                 if item in current_tile.useable_items:
-                    useable_items.append(f'{n}: {item}')
+                    useable_items.append(f'{n + 1}: {item.capitalize()}')
 
-            # Om det fanns några användbara items, srkiv ut dem
+            # Om det fanns några användbara items, skriv ut dem
             if useable_items:
-                standardPrint('Du kan använda:\n', *useable_items)
+                standardPrint('Du kan använda:', *useable_items, add_dots=False)
 
-            #TODO let player choose one with a number
+                selected_index = IO.integer_input(tuple(range(1, len(current_tile.useable_items))))
 
-            logger.info(f'Used {item}')
-            standardPrint('item used')
+                item = current_tile.useable_items[selected_index - 1]
+
+                items.use_item(current_tile, item, game_level)
+                logger.info(f'Used {item}')
 
         elif key == 'pickup':
             if current_tile.findable_item:
@@ -93,18 +96,9 @@ def main():
             else:
                 standardPrint('Det finns inget att plocka upp här')
 
-        elif key in current_tile.avalible_directions:
-            if key == directions.up:
-                current_tile = game_level.get_tile(current_tile.x, current_tile.y - 1)
-
-            if key == directions.down:
-                current_tile = game_level.get_tile(current_tile.x, current_tile.y + 1)
-
-            if key == directions.right:
-                current_tile = game_level.get_tile(current_tile.x + 1, current_tile.y)
-
-            if key == directions.left:
-                current_tile = game_level.get_tile(current_tile.x - 1, current_tile.y)
+        # Sätt nuvarande tile till tile åt det valda hållet
+        elif key in current_tile.available_directions:
+            current_tile = game_level.get_tile(tile=current_tile, direction=key)
 
         # Om man trycker på en tangent som inte leder någonstans
         else:

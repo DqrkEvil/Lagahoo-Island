@@ -1,8 +1,12 @@
 '''Hanterar allting som har med kartan att göra'''
 
+from __future__ import annotations
+
 from typing import Literal
-import items
+
 import directions
+import items
+
 
 # Classes
 class Tile():
@@ -37,22 +41,45 @@ class Tile():
 
         self.explored = False
 
-    def edit_directions(self, method: Literal['add', 'remove'], directions: tuple):
-        '''Edit available directions for this tile'''
+    def edit_connections(self, method: Literal['add', 'remove'], new_direction: str, level: Level, oneway: bool = False):
+        '''Ändra vilka kopplingar som finns mellan tiles'''
 
         if method == 'add':
-            self.available_directions = (*self.available_directions, *directions)
+            # Om  riktnigen redan finns
+            if new_direction in self.available_directions:
+                return
+
+            # Lägg till riktningen på nuvarande tile
+            self.available_directions = (*self.available_directions, new_direction)
+
+            # Lägg till inversen av riktningen på tilen som riktningen leder till så att man kan gå tillbaka
+            if not oneway:
+                inverted_direction = directions.invert_directions((new_direction,))[0]
+                adjacent_tile = level.get_tile(tile=self, direction=new_direction)
+
+                adjacent_tile.edit_connections('add', inverted_direction, level)
 
         if method == 'remove':
-            self.available_directions = tuple(direction for direction in self.available_directions if direction not in directions)
+            # Om riktningen inte finns
+            if new_direction not in self.available_directions:
+                return
+
+            # Ta bort riktningen
+            self.available_directions = tuple(direction for direction in self.available_directions if direction != new_direction)
+
+            if not oneway:
+                inverted_direction = directions.invert_directions((new_direction,))[0]
+                adjacent_tile = level.get_tile(tile=self, direction=new_direction)
+
+                adjacent_tile.edit_connections('remove', inverted_direction, level)
 
 class Level():
     '''Klass för att hantera kartan'''
 
     def __init__(self) -> None:
-        self.create_level()
+        self.generate_level()
 
-    def create_level(self):
+    def generate_level(self):
         '''Skapa kartan för spelet'''
 
         # Rad 1
@@ -82,7 +109,7 @@ class Level():
         lake = Tile(
             3, 2,
             ('Du står brevid en sjö', 'En sjö glittrar %(direction)s från dig'),
-            (directions.right, directions.down))
+            (directions.right,))
 
         parrot = Tile(
             4, 2,
@@ -105,7 +132,7 @@ class Level():
         monkey = Tile(
             3, 3,
             ('Du ser en apa som står på några lådor, \n*hmmm det kanske finns något i lådorna*', 'Du ser en apa som står på några lådor %(direction)s'),
-            (directions.up, directions.left),
+            (directions.left,),
             (items.hatchet,),
             ('Prata med apan',))
         
@@ -164,20 +191,13 @@ class Level():
             (None, spikes, cave_2, hidden_cave)
         )
 
-    def get_tile(self, x: int, y: int) -> Tile:
-        '''Tile objekt vid koordinat x, y. 1, 1 är övre vänstra hörnet'''
+    def get_tile(self, x: int | None = None, y: int | None = None, tile: Tile | None = None, direction: str | None = None) -> Tile:
+        '''Tile objekt vid koordinat x, y eller åt ett håll från nuvarande. 1, 1 är övre vänstra hörnet'''
 
-        return self.level[y-1][x-1]
-
-    def format_directions(self, tile: Tile) -> tuple:
-        '''Hämta beskrivningar från närliggande tiles'''
-
-        descriptions = [str]
-
-        for direction in tile.available_directions:
-
-            #* Standard beskrivningar
-            # Hämta närliggande tile
+        if x and y:
+            return self.level[y-1][x-1]
+        
+        elif tile and direction:
             if direction == directions.up:
                 adjacent_tile = self.get_tile(tile.x, tile.y - 1)
 
@@ -190,6 +210,18 @@ class Level():
             elif direction == directions.left:
                 adjacent_tile = self.get_tile(tile.x - 1, tile.y)
 
+            return adjacent_tile
+
+    def format_directions(self, tile: Tile) -> tuple:
+        '''Hämta beskrivningar från närliggande tiles'''
+
+        descriptions = []
+        
+        # Hämta alla närliggande tiles
+        for direction in tile.available_directions:
+
+            adjacent_tile = self.get_tile(tile=tile, direction=direction)
+
             # Om det inte finns någon beskrivning
             if not adjacent_tile.descriptions[1]:
                 continue
@@ -199,7 +231,8 @@ class Level():
             if tile.x == 2 and tile.y == 1 and direction == directions.down:
                 descriptions.append(adjacent_tile.descriptions[2] % {'direction': direction})
                 continue
-
+            
+            #* Standard beskrivningar
             descriptions.append(adjacent_tile.descriptions[1] % {'direction': direction})
 
         # Stooooor bokstav (ifall beskrivningen börjar med "%(direction)s")

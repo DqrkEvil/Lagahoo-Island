@@ -11,7 +11,7 @@ import text
 
 logger = logging.getLogger('__main__')
 
-# Inputs
+#* Inputs
 class Controls():
     '''Klass för att hantera spelarens inputs'''
 
@@ -62,23 +62,24 @@ class Controls():
 
         keyboard.add_hotkey("q", lambda: self.key_pressed("pickup"))
 
-def integer_input(acceptable_values: tuple | None = None) -> int:
+def integer_input(*acceptable_values, error_text: str = 'Det där var inte ett möjligt val') -> int:
     '''Tar en input från avnändaren som måste vara en int'''
 
     while True:
-        integer = input()
+        integer = input().strip()
 
-        if integer.isdigit() and (not acceptable_values or integer in acceptable_values):
+        if integer.isdigit() and (not acceptable_values or int(integer) in acceptable_values):
             return int(integer)
 
-        standardPrint('Det där var inte ett möjligt val')
+        standardPrint(error_text)
 
-# Outputs
+#* Outputs
 def printMainMenu():
     """Skriv ut main menyn och vänta tills spelaren vill börja"""
 
+    os.system('cls')
     print(fade.greenblue(text.mainMenuText))
-    time.sleep(2)
+    time.sleep(1.4)
     input(text.startGameText)
     os.system('cls')
 

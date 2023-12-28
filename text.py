@@ -1,3 +1,5 @@
+import directions
+
 mainMenuText = r"""
 
 
@@ -36,9 +38,13 @@ Hur ska jag komma tillbaka till fastlandet?
 Desto mer du ligger och tänker desto tyngre blir ögonlocken.
 Till slut blir det svart."""
 
-controlInfo = """Information on kontroller:
+controlInfo = f"""Information:
 
-Använd WASD / piltangenterna för att gå runt
+Använd WASD eller piltangenterna för att gå runt:
+W / pil upp: {directions.left}
+A / pil vänster: {directions.down}
+S / pil neråt: {directions.right}
+D / pil höger: {directions.up}
 
 i: information
 
@@ -46,4 +52,21 @@ m: öppna kartan
 
 e: använd föremål
 
-q: plocka upp föremål i nuvarande rum"""
+q: plocka upp föremål i nuvarande rum
+
+Spelet sparas varje gång du återvänder till startplatsen på stranden"""
+
+slotSelection = """%(slot_selection)s
+ .-------------------.    .-------------------.    .-------------------. 
+| .-----------------. |  | .-----------------. |  | .-----------------. |
+| |       __        | |  | |      _____      | |  | |      ______     | |
+| |      /  |       | |  | |     / ___ `.    | |  | |     / ____ `.   | |
+| |      `| |       | |  | |    |_/___) |    | |  | |     `'  __) |   | |
+| |       | |       | |  | |     .'____.'    | |  | |     _  |__ '.   | |
+| |      _| |_      | |  | |    / /____      | |  | |    | \____) |   | |
+| |     |_____|     | |  | |    |_______|    | |  | |     \______.'   | |
+| |                 | |  | |                 | |  | |                 | |
+| |  Senast använt: | |  | |  Senast använt: | |  | |  Senast använt: | |
+| |  %(slot1)-12s   | |  | |  %(slot2)-12s   | |  | |  %(slot3)-12s   | |
+| '-----------------' |  | '-----------------' |  | '-----------------' |
+ '-------------------'    '-------------------'    '-------------------' """

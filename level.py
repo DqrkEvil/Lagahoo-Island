@@ -18,7 +18,6 @@ class Tile():
                  descriptions: tuple[str],
                  available_directions: tuple,
                  useable_items: tuple = tuple(),
-                 actions: tuple = tuple(),
                  findable_item: str | None = None
                  ) -> None:
         '''
@@ -27,7 +26,6 @@ class Tile():
         :descriptions: tuple med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. om man ser denna tile från en bredvid
         :available_directions: alla vägar att gå från denna tile
         :useable_items: items som går att använda på denna tile
-        :actions: alla möjliga aktiviteter på denna tile
         :findable_items: saker som går att ta från denna tile'''
 
         self.x = x
@@ -37,11 +35,10 @@ class Tile():
         self.available_directions = available_directions
         self.useable_items = useable_items
         self.findable_item = findable_item
-        self.actions = actions
 
         self.explored = False
 
-    def edit_connections(self, method: Literal['add', 'remove'], new_direction: str, level: Level, oneway: bool = False):
+    def edit_connections(self, method: Literal['add', 'remove'], new_direction: str, level: Level, one_way: bool = False):
         '''Ändra vilka kopplingar som finns mellan tiles'''
 
         if method == 'add':
@@ -53,7 +50,7 @@ class Tile():
             self.available_directions = (*self.available_directions, new_direction)
 
             # Lägg till inversen av riktningen på tilen som riktningen leder till så att man kan gå tillbaka
-            if not oneway:
+            if not one_way:
                 inverted_direction = directions.invert_directions((new_direction,))[0]
                 adjacent_tile = level.get_tile(tile=self, direction=new_direction)
 
@@ -67,7 +64,7 @@ class Tile():
             # Ta bort riktningen
             self.available_directions = tuple(direction for direction in self.available_directions if direction != new_direction)
 
-            if not oneway:
+            if not one_way:
                 inverted_direction = directions.invert_directions((new_direction,))[0]
                 adjacent_tile = level.get_tile(tile=self, direction=new_direction)
 
@@ -76,8 +73,13 @@ class Tile():
 class Level():
     '''Klass för att hantera kartan'''
 
-    def __init__(self) -> None:
-        self.generate_level()
+    def __init__(self, operation: Literal['new', 'load'] = 'new', level_data: dict | None = None) -> None:
+
+        if operation == 'new':
+            self.generate_level()
+
+        elif operation == 'load':
+            self.load_level(level_data)
 
     def generate_level(self):
         '''Skapa kartan för spelet'''
@@ -114,8 +116,7 @@ class Level():
         parrot = Tile(
             4, 2,
             ('Du ser en papegoja som ser väldigt prat glad ut \n*papegojan kanske ger dig något föremål om du hjälper han*', 'Du ser en papegoja %(direction)s om dig'),
-            (directions.left,),
-            actions=('Prata med papegoja',))
+            (directions.left,))
 
         # Rad 3
         base = Tile(
@@ -191,13 +192,17 @@ class Level():
             (None, spikes, cave_2, hidden_cave)
         )
 
+    def load_level(self, level_data):
+        '''Ladda in kartan från sparfilen'''
+        pass
+
     def get_tile(self, x: int | None = None, y: int | None = None, tile: Tile | None = None, direction: str | None = None) -> Tile:
         '''Tile objekt vid koordinat x, y eller åt ett håll från nuvarande. 1, 1 är övre vänstra hörnet'''
 
         if x and y:
             return self.level[y-1][x-1]
         
-        elif tile and direction:
+        if tile and direction:
             if direction == directions.up:
                 adjacent_tile = self.get_tile(tile.x, tile.y - 1)
 
@@ -212,7 +217,7 @@ class Level():
 
             return adjacent_tile
 
-    def format_directions(self, tile: Tile) -> tuple:
+    def get_descriptions(self, tile: Tile) -> tuple:
         '''Hämta beskrivningar från närliggande tiles'''
 
         descriptions = []
@@ -239,3 +244,8 @@ class Level():
         descriptions = [i.capitalize() for i in descriptions]
 
         return descriptions
+
+    def get_tiles(self) -> tuple[Tile]:
+        '''Lägger alla tiles i en lång tuple'''
+
+        return tuple()

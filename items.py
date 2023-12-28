@@ -50,7 +50,6 @@ def use_item(current_tile: level.Tile, item: str, game_level: level.Level):
         IO.standardPrint("Du hugger ner trädet och får plankor och lianer\n *detta är perfekt att bygga en flotte av*")
         inventory.append(materials)
 
-    #TODO göra så att man bara kan gå till lake ifall man hjälper apan först
     elif item == hatchet and current_tile.x == 3:
         IO.standardPrint("Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dom, som tack flyttade apan ur vägen så du nu kan gå vidare")
         current_tile.edit_connections('add', directions.up, game_level)

@@ -44,11 +44,18 @@ def main():
     os.system('cls')
 
     #TODO ladda in data från den valda platsen
+    # if save_data:
+    #     game_level = level.Level('load', save_data['level'])
+    #     logger.info('Map loaded')
 
-    # Skapa en 'tom' karta
+    # # Skapa en 'tom' karta om det inte finns spardata
+    # else:
+    #     game_level = level.Level()
+    #     logger.info('New map generated')
+
     game_level = level.Level()
-    current_tile = game_level.get_tile(1, 3)
     logger.info('New map generated')
+    current_tile = game_level.get_tile(3, 4)
 
     # Skapa kontroller
     controls = IO.Controls()
@@ -60,7 +67,7 @@ def main():
     while True:
         logger.info(f'Now on tile {current_tile.x},{current_tile.y}')
 
-        if current_tile.x == 1 and current_tile.y == 3:
+        if current_tile.x == 3 and current_tile.y == 4:
 
             # Spara alla tiles och deras egenskaper
             tiles = tuple(tile.__dict__ if tile else tile for row in game_level.level for tile in row) # lite cred till ChatGPT för en del av generatorn: (expression for row in game_level.level for tile in row)
@@ -94,16 +101,16 @@ def main():
 
             # Skapa en lista med alla items som går att använda
             for n, item in enumerate(items.inventory):
-                if item in current_tile.useable_items:
+                if item in current_tile.usable_items:
                     useable_items.append(f'{n + 1}: {item.capitalize()}')
 
             # Om det fanns några användbara items, skriv ut dem
             if useable_items:
                 standardPrint('Du kan använda:', *useable_items, add_dots=False)
 
-                selected_index = IO.integer_input(*range(1, len(current_tile.useable_items)))
+                selected_index = IO.integer_input(*range(1, len(current_tile.usable_items)))
 
-                item = current_tile.useable_items[selected_index - 1]
+                item = current_tile.usable_items[selected_index - 1]
 
                 items.use_item(current_tile, item, game_level)
                 logger.info(f'Used {item}')

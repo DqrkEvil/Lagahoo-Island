@@ -42,17 +42,17 @@ class Controls():
     def add_hotkeys(self) -> None:
         '''Lägg till hotkeys för att kontrollera'''
 
-        keyboard.add_hotkey("w", lambda: self.key_pressed(directions.right))
-        keyboard.add_hotkey("up arrow", lambda: self.key_pressed(directions.right))
+        keyboard.add_hotkey("w", lambda: self.key_pressed(directions.up))
+        keyboard.add_hotkey("up arrow", lambda: self.key_pressed(directions.up))
 
-        keyboard.add_hotkey("s", lambda: self.key_pressed(directions.left))
-        keyboard.add_hotkey("down arrow", lambda: self.key_pressed(directions.left))
+        keyboard.add_hotkey("a", lambda: self.key_pressed(directions.left))
+        keyboard.add_hotkey("left arrow", lambda: self.key_pressed(directions.left))
 
-        keyboard.add_hotkey("d", lambda: self.key_pressed(directions.down))
-        keyboard.add_hotkey("right arrow", lambda: self.key_pressed(directions.down))
+        keyboard.add_hotkey("s", lambda: self.key_pressed(directions.down))
+        keyboard.add_hotkey("down arrow", lambda: self.key_pressed(directions.down))
 
-        keyboard.add_hotkey("a", lambda: self.key_pressed(directions.up))
-        keyboard.add_hotkey("left arrow", lambda: self.key_pressed(directions.up))
+        keyboard.add_hotkey("d", lambda: self.key_pressed(directions.right))
+        keyboard.add_hotkey("right arrow", lambda: self.key_pressed(directions.right))
 
         keyboard.add_hotkey("i", lambda: self.key_pressed("info"))
 
@@ -94,7 +94,7 @@ def standardPrint(*sections, add_dots: bool = True):
             # https://replit.com/talk/ask/How-to-make-your-text-appear-fluidly-instead-of-one-big-chunk-in-Python/111394
             sys.stdout.write(char)
             sys.stdout.flush()
-            time.sleep(0.04)
+            time.sleep(0)
         print('. ' if add_dots else '')
 
     print('\n')

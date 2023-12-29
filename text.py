@@ -41,10 +41,10 @@ Till slut blir det svart."""
 controlInfo = f"""Information:
 
 Använd WASD eller piltangenterna för att gå runt:
-W / pil upp: {directions.left}
-A / pil vänster: {directions.down}
-S / pil neråt: {directions.right}
-D / pil höger: {directions.up}
+W / pil upp: {directions.up}
+A / pil vänster: {directions.left}
+S / pil neråt: {directions.down}
+D / pil höger: {directions.right}
 
 i: information
 

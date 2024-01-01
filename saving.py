@@ -10,7 +10,7 @@ import text
 
 logger = logging.getLogger('__main__')
 
-def save_save(slot: str, **data) -> None:
+def save(slot: str, **data) -> None:
     '''Sparar allt spelaren har gjort än så länge till en slot'''
 
     # Ladda från filen om den finnns
@@ -31,7 +31,7 @@ def save_save(slot: str, **data) -> None:
     with open('saves.json', 'w', encoding='UTF-8') as file:
         json.dump(saved_data, file, ensure_ascii=False, indent=4, sort_keys=True)
 
-def load_saves() -> dict:
+def load() -> dict:
     '''Ladda in all spardata'''
 
     with open('saves.json', 'r', encoding='UTF-8') as file:
@@ -46,7 +46,7 @@ def select_slot() -> (dict, str):
 
     # Ladda in data om det finns någon annars tom dict
     if os.path.isfile('saves.json'):
-        data = load_saves()
+        data = load()
 
     else:
         data = {}
@@ -84,7 +84,7 @@ def select_slot() -> (dict, str):
                     'slot3': save_dates[2]})
 
         # Bara platser som är använda får väljas
-        game_slot = IO.integer_input(*(n for n, date in enumerate(save_dates) if date != 'Aldrig'))
+        game_slot = IO.integer_input(*(n + 1 for n, date in enumerate(save_dates) if date != 'Aldrig'))
 
     # En key måste vara str i json format
     game_slot = str(game_slot)

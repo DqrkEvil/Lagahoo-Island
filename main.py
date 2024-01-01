@@ -8,8 +8,6 @@ import time
 import IO
 import items
 import saving
-# import directions
-# import actions
 import level
 import text
 from IO import standardPrint
@@ -44,17 +42,18 @@ def main():
     os.system('cls')
 
     #TODO ladda in data från den valda platsen
-    # if save_data:
-    #     game_level = level.Level('load', save_data['level'])
-    #     logger.info('Map loaded')
+    if save_data:
+        items.inventory = save_data['inventory']
+        logger.info('Inventory loaded')
 
-    # # Skapa en 'tom' karta om det inte finns spardata
-    # else:
-    #     game_level = level.Level()
-    #     logger.info('New map generated')
+        game_level = level.Level('load', save_data['level'])
+        logger.info('Map loaded')
 
-    game_level = level.Level()
-    logger.info('New map generated')
+    # Skapa en 'tom' karta om det inte finns spardata
+    else:
+        game_level = level.Level()
+        logger.info('New map generated')
+
     current_tile = game_level.get_tile(3, 4)
 
     # Skapa kontroller
@@ -66,19 +65,19 @@ def main():
     # logger.info('Startar loopen')
     while True:
         logger.info(f'Now on tile {current_tile.x},{current_tile.y}')
+        current_tile.set_explored(True)
 
         if current_tile.x == 3 and current_tile.y == 4:
 
-            # Spara alla tiles och deras egenskaper
-            tiles = tuple(tile.__dict__ if tile else tile for row in game_level.level for tile in row) # lite cred till ChatGPT för en del av generatorn: (expression for row in game_level.level for tile in row)
+            # Spara alla tiles och ändrade attribut
+            tiles = game_level.compress_tiles()
             logger.debug(f'Current map ready for saving, first tiles preview: {tiles[0:6]}')
 
-            saving.save_save(
+            saving.save(
                 game_slot,
                 inventory=items.inventory,
                 level=tiles)
 
-        current_tile.explored = True
         standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile))
 
         key = controls.await_input()

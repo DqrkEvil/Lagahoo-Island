@@ -20,7 +20,7 @@ class Tile():
                  usable_items: list | None = None,
                  findable_item: str | None = None
                  ) -> None:
-        '''
+        ''' Skapa en ny tile
         :x: tile koordinat
         :y: tile koordinat
         :descriptions: lista med beskrivning av denna tilen som skrivs ut när spelaren kommer hit och ev. om man ser denna tile från en bredvid
@@ -33,12 +33,17 @@ class Tile():
 
         self.descriptions = descriptions
         self.available_directions = available_directions
-        self.usable_items = usable_items if usable_items else []
+        self.usable_items = usable_items if usable_items else []  # Måste vara en lista för att koden ska fungera
         self.findable_item = findable_item
 
         self.explored = False
 
-    def edit_connections(self, method: Literal['add', 'remove'], new_direction: str, level: Level, one_way: bool = False):
+    def set_explored(self, explored: bool) -> None:
+        '''Denna tile har har besökts'''
+
+        self.explored = explored
+
+    def connections(self, method: Literal['add', 'remove'], new_direction: str, level: Level, one_way: bool = False):
         '''Ändra vilka kopplingar som finns mellan tiles'''
 
         if method == 'add':
@@ -49,13 +54,6 @@ class Tile():
             # Lägg till riktningen på nuvarande tile
             self.available_directions.append(new_direction)
 
-            # Lägg till inversen av riktningen på tilen som riktningen leder till så att man kan gå tillbaka
-            if not one_way:
-                inverted_direction = directions.invert_directions((new_direction,))[0]
-                adjacent_tile = level.get_tile(tile=self, direction=new_direction)
-
-                adjacent_tile.edit_connections('add', inverted_direction, level)
-
         if method == 'remove':
             # Om riktningen inte finns
             if new_direction not in self.available_directions:
@@ -64,11 +62,12 @@ class Tile():
             # Ta bort riktningen
             self.available_directions.remove(new_direction)
 
-            if not one_way:
-                inverted_direction = directions.invert_directions((new_direction,))[0]
-                adjacent_tile = level.get_tile(tile=self, direction=new_direction)
+        # Ändra inversen av riktningen på tilen som riktningen leder till så att man kan gå tillbaka
+        if not one_way:
+            inverted_direction = directions.invert_directions((new_direction,))[0]
+            adjacent_tile = level.get_tile(tile=self, direction=new_direction)
 
-                adjacent_tile.edit_connections('remove', inverted_direction, level)
+            adjacent_tile.connections(method, inverted_direction, level)
 
 class Level():
     '''Klass för att hantera kartan'''
@@ -76,12 +75,12 @@ class Level():
     def __init__(self, operation: Literal['new', 'load'] = 'new', level_data: dict | None = None) -> None:
 
         if operation == 'new':
-            self.generate_level()
+            self.level = self.generate_level()
 
         elif operation == 'load':
             self.load_level(level_data)
 
-    def generate_level(self):
+    def generate_level(self) -> list[list[Tile | None]]:
         '''Skapa kartan för spelet'''
 
         # Rad 1
@@ -199,22 +198,32 @@ class Level():
             items.dynamite
             )
 
-        # Skapa kartan med alla tiles
-        self.level = (
+        # Returnera kartan med alla tiles
+        return (
             (None, parrot, jungle2, cave1, hidden_cave),
             (kitchen, lake, monkey, cave_entrance, cave2),
             (hall, cottage, jungle1, mountain, spikes),
             (None, turtle, base, beach, None)
         )
 
-    def load_level(self, level_data):
+    def load_level(self, saved_level_data: list[dict]):
         '''Ladda in kartan från sparfilen'''
 
-        for n, tile in enumerate(level_data):
-            pass
+        self.level = self.generate_level()
+
+        # Gå igenom alla sparade tiles
+        for saved_tile in saved_level_data:
+            
+            # Hämta tile från den nya kartan vid samma position
+            new_tile = self.get_tile(saved_tile['x'], saved_tile['y'])
+
+            # Gå igenom alla sparade ändringar och ändra på den riktiga kartan
+            for attribute in set(saved_tile.keys()) - {'x', 'y'}:  # ChatGPT lärde mig om set operationer som
+                
+                setattr(new_tile, attribute, saved_tile[attribute])
 
     def get_tile(self, x: int | None = None, y: int | None = None, tile: Tile | None = None, direction: str | None = None) -> Tile:
-        '''Tile objekt vid koordinat x, y eller åt ett håll från nuvarande. 1, 1 är övre vänstra hörnet'''
+        '''Tile objekt vid koordinat x, y eller åt ett håll från nuvarande. 1, 1 är övre vänstra hörnet (Använder self.level tiles)'''
 
         if x and y:
             return self.level[y-1][x-1]
@@ -261,3 +270,22 @@ class Level():
         descriptions = [i.capitalize() for i in descriptions]
 
         return descriptions
+
+    def compress_tiles(self) -> list:
+        '''Komprimera alla tiles till en lista med alla tiles.
+        OBS: Inkluderar bara data som skiljer sig från en ny karta för att spara plats'''
+
+        current_tiles = tuple(tile for row in self.level for tile in row) # lite cred till ChatGPT för en del av generatorn: (expression for outer_item in outer_sequence for inner_item in inner_sequence)
+        new_tiles = tuple(tile for row in self.generate_level() for tile in row)
+        saving_tiles = []
+
+        for current_tile, new_tile in zip(current_tiles, new_tiles):
+            
+            # Om det finns ett tile objekt
+            if current_tile:
+                differences = {key: value for key, value in current_tile.__dict__.items() if value != new_tile.__dict__[key]}
+                differences.update({'x': current_tile.x,
+                                    'y': current_tile.y})
+                saving_tiles.append(differences)
+
+        return saving_tiles

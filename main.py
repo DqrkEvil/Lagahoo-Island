@@ -7,8 +7,8 @@ import time
 
 import IO
 import items
-import saving
 import level
+import saving
 import text
 from IO import standardPrint
 
@@ -64,7 +64,7 @@ def main():
     # Spelets primära loop
     # logger.info('Startar loopen')
     while True:
-        logger.info(f'Now on tile {current_tile.x},{current_tile.y}')
+        logger.debug(f'Now on tile {current_tile.x},{current_tile.y}')
         current_tile.set_explored(True)
 
         if current_tile.x == 3 and current_tile.y == 4:
@@ -72,11 +72,14 @@ def main():
             # Spara alla tiles och ändrade attribut
             tiles = game_level.compress_tiles()
             logger.debug(f'Current map ready for saving, first tiles preview: {tiles[0:6]}')
+            logger.debug(f'Current inventory to save: {items.inventory}')
 
             saving.save(
                 game_slot,
                 inventory=items.inventory,
                 level=tiles)
+            
+            logger.info(f'Progress saved to slot {game_slot}')
 
         standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile))
 
@@ -85,16 +88,16 @@ def main():
         logger.info(f'User input taken: {key}')
 
         if key == 'info':
-            logger.info('Info print triggered')
+            logger.debug('Info print triggered')
             standardPrint(text.controlInfo)
 
         elif key == 'map':
-            logger.info('Open map triggerd')
+            logger.debug('Open map triggerd')
             #TODO Print map
             standardPrint('map opened WIP')
 
         elif key == 'use item':
-            logger.info('Item usage triggered')
+            logger.debug('Item usage triggered')
 
             useable_items = []
 
@@ -112,7 +115,7 @@ def main():
                 item = current_tile.usable_items[selected_index - 1]
 
                 items.use_item(current_tile, item, game_level)
-                logger.info(f'Used {item}')
+                logger.info(f'Used {item} on {current_tile.x},{current_tile.y}')
 
         elif key == 'pickup':
             logger.info('Item pickup triggered')
@@ -126,7 +129,7 @@ def main():
 
         # Sätt nuvarande tile till tile åt det valda hållet
         elif key in current_tile.available_directions:
-            logger.info('Movement triggerd')
+            logger.debug('Movement triggerd')
             current_tile = game_level.get_tile(tile=current_tile, direction=key)
 
         # Om man trycker på en tangent som inte leder någonstans

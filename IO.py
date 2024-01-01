@@ -1,3 +1,5 @@
+'''Hanterar all input och output för spelet'''
+
 import logging
 import os
 import sys

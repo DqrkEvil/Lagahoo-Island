@@ -1,3 +1,5 @@
+'''Förvarar alla större textbitar och ascii art för spelet'''
+
 import directions
 
 mainMenuText = r"""

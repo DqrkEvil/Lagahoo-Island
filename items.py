@@ -17,7 +17,7 @@ hatchet = 'yxa'
 materials = "plankor och lianer"
 
 # Spelarens inventory
-inventory = []
+inventory = [hatchet]
 
 # Funktioner
 def pickup_item(current_tile: level.Tile) -> str:
@@ -54,12 +54,11 @@ def use_item(current_tile: level.Tile, item: str, game_level: level.Level):
         inventory.append(materials)
 
     elif item == hatchet and current_tile.y == 2:
-        # Om man använder yxan på tile med apa och lådor
+        # Om man använder yxan på tile med apan och lådorna
         IO.standardPrint("Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dom, som tack flyttade apan ur vägen så du nu kan gå vidare")
 
         # Uppdatera tile attribut
         current_tile.connections('add', directions.left, game_level)
+
         current_tile.usable_items.remove(hatchet)
         current_tile.descriptions = ['Du ser apan som du hjälpte sitta och äta bananer från lådorna', 'Du ser en apa som äter bananer %(direction)s']
-
-        logger.info('Path to lake added')

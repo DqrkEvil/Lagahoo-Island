@@ -6,7 +6,9 @@ from typing import Literal
 
 import directions
 import items
+import logging
 
+logger = logging.getLogger('__main__')
 
 # Classes
 class Tile():
@@ -43,29 +45,31 @@ class Tile():
 
         self.explored = explored
 
-    def connections(self, method: Literal['add', 'remove'], new_direction: str, level: Level, one_way: bool = False):
+    def connections(self, method: Literal['add', 'remove'], direction: str, level: Level, one_way: bool = False):
         '''Ändra vilka kopplingar som finns mellan tiles'''
 
         if method == 'add':
             # Om  riktnigen redan finns
-            if new_direction in self.available_directions:
+            if direction in self.available_directions:
                 return
 
             # Lägg till riktningen på nuvarande tile
-            self.available_directions.append(new_direction)
+            self.available_directions.append(direction)
+            logger.info(f'Path from {self.x},{self.y} added in direction: {direction}')
 
         if method == 'remove':
             # Om riktningen inte finns
-            if new_direction not in self.available_directions:
+            if direction not in self.available_directions:
                 return
 
             # Ta bort riktningen
-            self.available_directions.remove(new_direction)
+            self.available_directions.remove(direction)
+            logger.info(f'Path from {self.x},{self.y} removed in direction: {direction}')
 
         # Ändra inversen av riktningen på tilen som riktningen leder till så att man kan gå tillbaka
         if not one_way:
-            inverted_direction = directions.invert_directions((new_direction,))[0]
-            adjacent_tile = level.get_tile(tile=self, direction=new_direction)
+            inverted_direction = directions.invert_directions((direction,))[0]
+            adjacent_tile = level.get_tile(tile=self, direction=direction)
 
             adjacent_tile.connections(method, inverted_direction, level)
 

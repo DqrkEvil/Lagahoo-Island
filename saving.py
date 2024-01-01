@@ -16,16 +16,19 @@ def save(slot: str, **data) -> None:
     # Ladda från filen om den finnns
     if os.path.isfile('saves.json'):
         with open('saves.json', 'r', encoding='UTF-8') as file:
-            saved_data = json.load(file)
+            saved_data: dict[str, dict] = json.load(file)  # Inline typhänvisning
 
     # Annars skapa en tom
     else:
-        saved_data = {slot: {}}
+        saved_data = {}
 
     # Lägg till datun när sparfilen använts
     data.update({'date': str(datetime.datetime.now()).split(' ', maxsplit=1)[0]})
 
     # Lägg till datan och skriv den till filen
+    if slot not in saved_data.keys():
+        saved_data.update({slot: {}})
+
     saved_data[slot].update(data)
 
     with open('saves.json', 'w', encoding='UTF-8') as file:

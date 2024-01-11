@@ -90,13 +90,13 @@ class Level():
         # Rad 1
         parrot = Tile(
             2, 1,
-            ['Du ser en papegoja som ser väldigt prat glad ut \n*papegojan kanske ger dig något föremål om du hjälper han*', 'Du ser en papegoja %(direction)s om dig'],
+            ['Du ser en papegoja som ser pratglad ut \n*papegojan kanske ger dig något föremål om du hjälper den*', 'Du ser en papegoja %(direction)s'],
             [directions.down]
             )
 
         jungle2 = Tile(
             3, 1,
-            ["Du ser en gravsten med en spade stickande ut från den","Du ser en gravsten %(direction)s"],
+            ['Det finns en gravsten med en spade som sticker fram","Du ser en gravsten %(direction)s'],
             [directions.down],
             findable_item=items.shovel
             )
@@ -110,7 +110,7 @@ class Level():
 
         hidden_cave = Tile(
             5, 1,
-            ['Du ser en yxa på en pedistal \n*denna kan man nog använda för att ta sönder obejekt gjort av trä*', 'Du ser ett litet rum %(direction)s som inte var där tidigare'],
+            ['Du ser en yxa på en pedistal \n*denna kan man nog använda för att slå sönder objekt gjort av trä*', 'Du ser ett litet rum %(direction)s som inte var där tidigare'],
             [],
             findable_item=items.hatchet
             )
@@ -139,7 +139,7 @@ class Level():
         cave_entrance = Tile(
             4, 2,
             ["Du går in i grottan med din nyligt tända fackla", 'Du ser ingången till grottan %(direction)s'],
-            [directions.up, directions.down, directions.right]
+            [directions.up, directions.right]
             )
 
         cave2 = Tile(
@@ -170,8 +170,8 @@ class Level():
 
         mountain = Tile(
             4, 3,
-            ['Du finner dig högt upp i bergen, oj vad kallt det var här', 'Du ser några höga berg %(direction)s om dig'],
-            [directions.up, directions.right, directions.left]
+            ['Du finner dig högt upp i bergen, oj vad kallt det var här\nDet finns en mörk grotta framför dig *här skulle det vara bra att ha en fackla*', 'Du ser några höga berg %(direction)s om dig'],
+            [directions.right, directions.left]
             )
 
         spikes = Tile(

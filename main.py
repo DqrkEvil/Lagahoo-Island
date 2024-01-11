@@ -7,6 +7,7 @@ import time
 
 import IO
 import items
+import directions
 import level
 import saving
 import text
@@ -41,7 +42,6 @@ def main():
     save_data, game_slot = saving.select_slot()
     os.system('cls')
 
-    #TODO ladda in data från den valda platsen
     if save_data:
         items.inventory = save_data['inventory']
         logger.info('Inventory loaded')
@@ -92,7 +92,7 @@ def main():
             standardPrint(text.controlInfo)
 
         elif key == 'map':
-            logger.debug('Open map triggerd')
+            logger.debug('Open map triggered')
             #TODO Print map
             standardPrint('map opened WIP')
 
@@ -102,9 +102,9 @@ def main():
             useable_items = []
 
             # Skapa en lista med alla items som går att använda
-            for n, item in enumerate(items.inventory):
+            for item in items.inventory:
                 if item in current_tile.usable_items:
-                    useable_items.append(f'{n + 1}: {item.capitalize()}')
+                    useable_items.append(f'{len(useable_items) + 1}: {item.capitalize()}')
 
             # Om det fanns några användbara items, skriv ut dem
             if useable_items:
@@ -121,6 +121,14 @@ def main():
             logger.info('Item pickup triggered')
             if current_tile.findable_item:
                 item = items.pickup_item(current_tile)
+
+                # Lägg till väg till grottan om man plockar upp fackla
+                if item == items.torch:
+                    
+                    mountain_tile = game_level.get_tile(4, 3)
+                    mountain_tile.descriptions[0] = 'Du finner dig högt upp i bergen, oj vad kallt det var här'
+                    mountain_tile.connections('add', directions.up, game_level)
+                
                 logger.info(f'Picked up {item}')
                 standardPrint(f'Du plockade upp: {item}')
 
@@ -129,7 +137,7 @@ def main():
 
         # Sätt nuvarande tile till tile åt det valda hållet
         elif key in current_tile.available_directions:
-            logger.debug('Movement triggerd')
+            logger.debug('Movement triggered')
             current_tile = game_level.get_tile(tile=current_tile, direction=key)
 
         # Om man trycker på en tangent som inte leder någonstans

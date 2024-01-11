@@ -96,7 +96,7 @@ def standardPrint(*sections, add_dots: bool = True):
             # https://replit.com/talk/ask/How-to-make-your-text-appear-fluidly-instead-of-one-big-chunk-in-Python/111394
             sys.stdout.write(char)
             sys.stdout.flush()
-            time.sleep(0)
+            time.sleep(0.04)
         print('. ' if add_dots else '')
 
     print('\n')

@@ -30,6 +30,7 @@ mainMenuText = r"""
 
 startGameText = "                                                      Tryck ENTER för att starta spelet"
 
+# ASCII art tagen från https://www.reddit.com/r/ASCII_Archive/comments/ewsf5g/the_night_sky/
 preGameLore = """
 .　　　　　　　　　　 ✦ 　　　　   　 　　　˚　　　　　　　　　　　　　　　　　　　　   
 　　　　　　　　　　　　　.　　　☄　　　　　　　　 　　　. 　　 　　　　　　　 ✦ 　　　　　　　　　　 
@@ -86,3 +87,5 @@ slotSelection = """%(slot_selection)s
 | |  %(slot1)-12s   | |  | |  %(slot2)-12s   | |  | |  %(slot3)-12s   | |
 | '-----------------' |  | '-----------------' |  | '-----------------' |
  '-------------------'    '-------------------'    '-------------------' """
+
+parrot_riddle = ""

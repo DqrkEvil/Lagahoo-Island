@@ -30,8 +30,22 @@ mainMenuText = r"""
 
 startGameText = "                                                      Tryck ENTER för att starta spelet"
 
-preGameLore = """Du ligger på den fuktiga sanden, den tropiska luften fyller dina lungor medans du stirrar upp i det djupt mörkblå eviga tomrum fullt av stjärnor. 
-**Insert ascii art of stars**
+preGameLore = """
+.　　　　　　　　　　 ✦ 　　　　   　 　　　˚　　　　　　　　　　　　　　　　　　　　   
+　　　　　　　　　　　　　.　　　☄　　　　　　　　 　　　. 　　 　　　　　　　 ✦ 　　　　　　　　　　 
+‍ ‍ ‍ ‍ 　　　　 　　　　　　　　　　　　,　　   　 .　　　　　　　　　　　　　.　　　ﾟ　  　　　.　　　　　　　　　　　　　
+✦ 　　　　　　,　　　　　　　.　　　　　　    　　　　 　　　　　　　　　　　　　　　　　　  . 
+　　　　　　　　　　　　　　　　　　    　      　　　　　        　　　　　　　　　　　　　.
+　　　　　　　　　　　　　 　           　　　　　　　　　　　　　　　　　　　. ˚　　　 　   . ,
+　　　　　　　　　　　       　    　　　　　　　　　　　　　. .　　　  　　    ✦　 ✦　　　　 
+　　　　　.　　　　　　　　　　　　　.　　　　　✦　　　　　　　　　　
+‍ ‍ ‍ ,　 　　　　　　　　　　　　　　* .　　　　　 　　　　　　　　　　　　　　.　　　　　　　　　　
+✦ 　　　　   　 　　　˚　　　　　　　　　　　　　　*　　　　　　  
+　　　　　　　　　　　　　　　.　　　　　　　　　　　　　　 ✦
+　　　　　　　　　　　　　 　           　　　　　　　　　　　　　　　　　　　. ˚　　　 　   . ,
+　　　　　　　　　　　  　　　　 　　,　　　 ‍ ‍ ‍ ‍ 　 　　　　　　　　　　　　.　　　　　 　　 　　　
+
+Du ligger på den fuktiga sanden, den tropiska luften fyller dina lungor medans du stirrar upp i det djupt mörkblå eviga tomrum fullt av stjärnor. 
 **Insert sound of waves washing up on the shore**
 Tankarna väller fram; 
 Vad hände med de andra, är det saken som vi skulle undersöka som är anledningen till att de har försvunnit? 

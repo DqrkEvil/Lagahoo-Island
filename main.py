@@ -7,7 +7,6 @@ import time
 
 import IO
 import items
-import directions
 import level
 import saving
 import text
@@ -69,17 +68,15 @@ def main():
 
         if current_tile.x == 3 and current_tile.y == 4:
 
-            # Spara alla tiles och ändrade attribut
+            # Spara allt för att kunna fortsätta
             tiles = game_level.compress_tiles()
-            logger.debug(f'Current map ready for saving, first tiles preview: {tiles[0:6]}')
             logger.debug(f'Current inventory to save: {items.inventory}')
+            logger.debug(f'Current map ready for saving, first tiles preview: {tiles[:4]}')
 
             saving.save(
                 game_slot,
                 inventory=items.inventory,
                 level=tiles)
-            
-            logger.info(f'Progress saved to slot {game_slot}')
 
         standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile))
 
@@ -98,49 +95,18 @@ def main():
 
         elif key == 'use item':
             logger.debug('Item usage triggered')
-
-            useable_items = []
-
-            # Skapa en lista med alla items som går att använda
-            for item in items.inventory:
-                if item in current_tile.usable_items:
-                    useable_items.append(f'{len(useable_items) + 1}: {item.capitalize()}')
-
-            # Om det fanns några användbara items, skriv ut dem
-            if useable_items:
-                standardPrint('Du kan använda:', *useable_items, add_dots=False)
-
-                selected_index = IO.integer_input(*range(1, len(current_tile.usable_items)))
-
-                item = current_tile.usable_items[selected_index - 1]
-
-                items.use_item(current_tile, item, game_level)
-                logger.info(f'Used {item} on {current_tile.x},{current_tile.y}')
+            items.use_item(current_tile, game_level)
 
         elif key == 'pickup':
             logger.info('Item pickup triggered')
-            if current_tile.findable_item:
-                item = items.pickup_item(current_tile)
-
-                # Lägg till väg till grottan om man plockar upp fackla
-                if item == items.torch:
-                    
-                    mountain_tile = game_level.get_tile(4, 3)
-                    mountain_tile.descriptions[0] = 'Du finner dig högt upp i bergen, oj vad kallt det var här'
-                    mountain_tile.connections('add', directions.up, game_level)
-                
-                logger.info(f'Picked up {item}')
-                standardPrint(f'Du plockade upp: {item}')
-
-            else:
-                standardPrint('Det finns inget att plocka upp här')
+            items.pickup_item(current_tile, game_level)
 
         # Sätt nuvarande tile till tile åt det valda hållet
         elif key in current_tile.available_directions:
             logger.debug('Movement triggered')
             current_tile = game_level.get_tile(tile=current_tile, direction=key)
 
-        # Om man trycker på en tangent som inte leder någonstans
+        # Om man trycker på en tangent som gör något
         else:
             standardPrint('Du kan inte gå åt det hållet')
             time.sleep(1)

@@ -34,6 +34,8 @@ def save(slot: str, **data) -> None:
     with open('saves.json', 'w', encoding='UTF-8') as file:
         json.dump(saved_data, file, ensure_ascii=False, indent=4, sort_keys=True)
 
+    logger.info(f'Progress saved to slot {slot}')
+
 def load() -> dict:
     '''Ladda in all spardata'''
 

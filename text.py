@@ -88,4 +88,4 @@ slotSelection = """%(slot_selection)s
 | '-----------------' |  | '-----------------' |  | '-----------------' |
  '-------------------'    '-------------------'    '-------------------' """
 
-parrot_riddle = ""
+parrot_riddle = ("Vad har fyra ben på dagen men sex ben på natten?(lämna svaret tomt för att gå tillbaka)", ("sängen", "en säng", "säng", "sängar","segnen", "en segn", "seng", "sengar","sägnen", "en sägn", "sägn", "sägnar","segnen", "en segn", "segn", "segnar"))

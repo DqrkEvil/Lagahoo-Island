@@ -48,7 +48,7 @@ def main():
         game_level = level.Level('load', save_data['level'])
         logger.info('Map loaded')
 
-    # Skapa en 'tom' karta om det inte finns spardata
+    # Skapa en ny karta om det inte finns spardata
     else:
         game_level = level.Level()
         logger.info('New map generated')
@@ -65,18 +65,6 @@ def main():
     while True:
         logger.debug(f'Now on tile {current_tile.x},{current_tile.y}')
         current_tile.set_explored(True)
-
-        if current_tile.x == 3 and current_tile.y == 4:
-
-            # Spara allt för att kunna fortsätta
-            tiles = game_level.compress_tiles()
-            logger.debug(f'Current inventory to save: {items.inventory}')
-            logger.debug(f'Current map ready for saving, first tiles preview: {tiles[:4]}')
-
-            saving.save(
-                game_slot,
-                inventory=items.inventory,
-                level=tiles)
 
         standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile))
 

@@ -20,8 +20,6 @@ materials = "plankor och lianer"
 inventory = []
 
 # Funktioner
-
-
 def pickup_item(current_tile: level.Tile, game_level: level.Level) -> None:
     '''Pickup item from tile'''
 
@@ -55,21 +53,21 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
         for n, item in enumerate(inventory):
             useable_items.append(f'{n + 1}: {item.capitalize()}')
-        
+
         IO.standardPrint('Du har:', *useable_items, '(välj med nummer och sedan enter)', add_dots=False)
-        
+
         # Tills man valt ett item som går att använda
         while True:
             selected_index = IO.integer_input(*range(1, len(useable_items)))
 
             if selected_index in current_tile.usable_items:
                 break
-        
+
         item = inventory[selected_index - 1]
 
         # Vad olika items gör när man använder dom på tiles där man kan använda dom
         if item == golden_seaweed:
-            IO.standardPrint("Sköldpaddan blev väldigt glad och hjälpte dig komma tillbaka till fastlandet genom att låta dig rida på sig\nGrattis, Du vann spelet!!!")
+            IO.standardPrint("Sköldpaddan blev väldigt glad och hjälpte dig komma tillbaka till fastlandet genom att låta dig rida.\nGrattis, Du vann spelet!!!")
 
         elif item == shovel:
             IO.standardPrint("Du gräver upp en dynamit")
@@ -89,7 +87,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
             current_tile.connections('add', directions.right, game_level)
 
         elif item == hatchet and current_tile.y == 3:
-            IO.standardPrint("Du hugger ner trädet och får plankor och lianer\n*detta är perfekt att bygga en flotte av*")
+            IO.standardPrint("Du hugger ner trädet och får plankor och lianer.\n*detta är perfekt att bygga en flotte av*")
 
             # Uppdatera tile attribut
             current_tile.usable_items.remove(hatchet)
@@ -107,3 +105,6 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
             current_tile.descriptions = ['Du ser apan som du hjälpte sitta och äta bananer från lådorna', 'Du ser en apa som äter bananer %(direction)s']
 
         logger.info(f'Used {item} on {current_tile.x},{current_tile.y}')
+
+    else:
+        IO.standardPrint('Du kan inte använda något här')

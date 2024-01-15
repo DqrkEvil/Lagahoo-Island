@@ -89,6 +89,8 @@ class Level():
         elif operation == 'load':
             self.load_level(level_data)
 
+        self.current_tile = self.get_tile(3, 4)
+
     def generate_level(self) -> list[list[Tile | None]]:
         '''Skapa kartan för spelet'''
 
@@ -101,7 +103,7 @@ class Level():
 
         jungle2 = Tile(
             3, 1,
-            ['\nDu ser en gravsten med en spade som sticker fram.', 'Du ser en gravsten %(direction)s'],
+            ['\nDu ser en gravsten med en spade som sticker fram', 'Du ser en gravsten %(direction)s'],
             [directions.down],
             findable_item=items.shovel
             )
@@ -168,7 +170,7 @@ class Level():
 
         jungle1 = Tile(
             3, 3,
-            ['\nDu befinner dig i jungeln, det finns ett stort träd här som skulle gå att använda till en flotte\n*det hade säkert gått att hugga ner med en yxa*', 'Du ser en öppning bland träden %(direction)sf'],
+            ['\nDu befinner dig i jungeln, det finns ett stort träd här som skulle gå att använda till en flotte.\n*det hade säkert gått att hugga ner med en yxa*', 'Du ser en öppning bland träden %(direction)s'],
             [directions.up, directions.down, directions.right, directions.left],
             [items.hatchet]
             )
@@ -276,9 +278,7 @@ class Level():
             descriptions.append(adjacent_tile.descriptions[1] % {'direction': direction})
 
         # Stooooor bokstav (ifall beskrivningen börjar med '%(direction)s')
-        descriptions = [i.capitalize() for i in descriptions]
-
-        return descriptions
+        return [description.capitalize() for description in descriptions]
 
     def compress_tiles(self) -> list:
         '''Komprimera alla tiles till en lista med tiles som bara inkluderar skillnader från en ny karta'''

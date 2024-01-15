@@ -10,7 +10,7 @@ import IO
 
 logger = logging.getLogger('__main__')
 
-def tile_event(game_slot: int, current_tile: level.Tile, game_level: level.Level):
+def tile_event(current_tile: level.Tile, game_level: level.Level, game_slot: int):
     '''Om det finns något event på tile, annars gör inget'''
 
     x = current_tile.x
@@ -29,7 +29,8 @@ def tile_event(game_slot: int, current_tile: level.Tile, game_level: level.Level
             level=tiles)
 
     # hidden cave
-    if x == 5 and y == 1:
+    elif x == 5 and y == 1:
+        # Om man inte har yxan än
         if items.hatchet not in items.inventory:
             IO.standardPrint('Du plockar upp yxan')
 
@@ -37,7 +38,7 @@ def tile_event(game_slot: int, current_tile: level.Tile, game_level: level.Level
             items.inventory.append(items.hatchet)
 
     # parrot
-    if x == 2 and y == 1:
+    elif x == 2 and y == 1:
         # Om man inte har sjögräset än
         if items.golden_seaweed not in items.inventory:
 
@@ -53,3 +54,7 @@ def tile_event(game_slot: int, current_tile: level.Tile, game_level: level.Level
 
                 if not answer:
                     return
+
+    elif x == 5 and y == 3:
+        IO.standardPrint('Varför hoppade du ner på spikarna?.\nDet var ett dåligt val, men vi är snälla och placerar dig tillbaka där du vaknade')
+        game_level.current_tile = game_level.get_tile(3, 4)

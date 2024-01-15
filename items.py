@@ -33,8 +33,11 @@ def pickup_item(current_tile: level.Tile, game_level: level.Level) -> None:
         # Lägg till väg till grottan om man plockar upp fackla
         if item == torch:
             mountain_tile = game_level.get_tile(4, 3)
-            mountain_tile.descriptions[0] = 'Du finner dig högt upp i bergen, oj vad kallt det var här'
+            mountain_tile.descriptions[0] = 'Du finner dig högt upp i bergen, oj vad kallt det var här.'
             mountain_tile.connections('add', directions.up, game_level)
+
+        if item == shovel:
+            current_tile.descriptions[0] = '\nDu ser en gravsten'
 
         logger.info(f'Picked up {item}')
         IO.standardPrint(f'Du plockade upp: {item}')
@@ -77,7 +80,6 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
             current_tile.findable_item = None
             inventory.append(dynamite)
 
-        #TODO göra så att man bara kan gå till tilen "hiddenCave" om man spränger dynamiten
         elif item == dynamite:
             IO.standardPrint("Du la ner dynamiten, du kanske borde gå iväg så du inte sprängs med den")
 
@@ -99,10 +101,9 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
             IO.standardPrint("Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dom, som tack flyttade apan ur vägen så du nu kan gå vidare")
 
             # Uppdatera tile attribut
-            current_tile.connections('add', directions.left, game_level)
-
             current_tile.usable_items.remove(hatchet)
             current_tile.descriptions = ['Du ser apan som du hjälpte sitta och äta bananer från lådorna', 'Du ser en apa som äter bananer %(direction)s']
+            current_tile.connections('add', directions.left, game_level)
 
         logger.info(f'Used {item} on {current_tile.x},{current_tile.y}')
 

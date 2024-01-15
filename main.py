@@ -7,6 +7,7 @@ import time
 
 import IO
 import items
+import events
 import level
 import saving
 import text
@@ -53,8 +54,6 @@ def main():
         game_level = level.Level()
         logger.info('New map generated')
 
-    current_tile = game_level.get_tile(3, 4)
-
     # Skapa kontroller
     controls = IO.Controls()
     controls.add_hotkeys()
@@ -63,10 +62,13 @@ def main():
     # Spelets primära loop
     # logger.info('Startar loopen')
     while True:
+        current_tile = game_level.current_tile
+
         logger.debug(f'Now on tile {current_tile.x},{current_tile.y}')
         current_tile.set_explored(True)
 
         standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile))
+        events.tile_event(current_tile, game_level, game_slot)
 
         key = controls.await_input()
 
@@ -92,7 +94,7 @@ def main():
         # Sätt nuvarande tile till tile åt det valda hållet
         elif key in current_tile.available_directions:
             logger.debug('Movement triggered')
-            current_tile = game_level.get_tile(tile=current_tile, direction=key)
+            game_level.current_tile = game_level.get_tile(tile=current_tile, direction=key)
 
         # Om man trycker på en tangent som gör något
         else:

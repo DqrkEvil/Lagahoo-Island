@@ -1,9 +1,9 @@
 '''Fil för standardiserade riktningar'''
 
-up = 'framåt'
-down = 'bakåt'
-right = 'till höger'
-left = 'till vänster'
+up = 'framåt (⬆)'
+down = 'bakåt (↓)'
+right = 'till höger (→)'
+left = 'till vänster (←)'
 
 def invert_directions(directions: list) -> list:
     '''Motsatsen till alla riktningar i en tuple'''

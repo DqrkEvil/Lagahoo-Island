@@ -95,20 +95,20 @@ class Level():
         # Rad 1
         parrot = Tile(
             2, 1,
-            ['\nDu ser en papegoja som ser pratglad ut.\n*papegojan kanske ger dig något om du hjälper den*', 'Du ser en papegoja %(direction)s'],
+            ['\nDu ser en papegoja som ser pratglad ut.\n*papegojan kanske ger dig något om du hjälper den*', 'Det finns en papegoja %(direction)s'],
             [directions.down]
             )
 
         jungle2 = Tile(
             3, 1,
-            ['\nDu ser en gravsten med en spade som sticker fram.', 'Du ser en gravsten %(direction)s'],
+            ['\nDu ser en gravsten med en spade som sticker fram.', 'Det finns en gravsten %(direction)s'],
             [directions.down],
             findable_item=items.shovel
             )
 
         cave1 = Tile(
             4, 1,
-            ['\nDu går djupare in i grottan och ser en bergvägg som ser instabil ut.\n*jag kanske kan använda dynamit för att ändra miljön här*', 'Grottan fortsätter %(direction)s'],
+            ['\nDu går djupare in i grottan och ser en bergvägg som ser instabil ut.\n*jag kanske kan använda dynamit för att spränga väggen*', 'Grottan fortsätter %(direction)s'],
             [directions.down],
             [items.dynamite]
             )
@@ -123,7 +123,7 @@ class Level():
         # Rad 2
         kitchen = Tile(
             1, 2,
-            ['\nDu är i stugans kök', 'Du ser ett kök %(direction)s'],
+            ['\nDu är i stugans kök', 'Stugans kök är %(direction)s'],
             [directions.down],
             findable_item=items.torch
             )
@@ -136,14 +136,14 @@ class Level():
 
         monkey = Tile(
             3, 2,
-            ['\nDu ser en apa som står på några lådor\n*hmmm det kanske finns något i lådorna*', 'Du ser en apa som står på några lådor %(direction)s'],
+            ['\nDu ser en apa som står på några lådor\n*det kanske finns något användbart i lådorna*', 'Du ser en apa som står på några lådor %(direction)s'],
             [directions.up, directions.down],
             [items.hatchet]
             )
 
         cave_entrance = Tile(
             4, 2,
-            ['\nDu går in i grottan med din nyligt tända fackla', 'Du ser ingången till grottan %(direction)s'],
+            ['\nDu går in i grottan med din tända fackla', 'Det finns en ingång till grottan %(direction)s'],
             [directions.up, directions.right]
             )
 
@@ -156,19 +156,19 @@ class Level():
         # Rad 3
         hall = Tile(
             1, 3,
-            ['\nDu är i hallen av stugan\n', 'Du ser stugans hall %(direction)s'],
+            ['\nDu är i hallen av stugan\n', 'Stugans hall är %(direction)s'],
             [directions.up, directions.right]
             )
 
         cottage = Tile(
             2, 3,
-            ['\nDu står i jungeln bredvid en liten stuga, dörren står på glänt', 'Det finns en stuga %(direction)s', 'Ytterdörren finns %(direction)s'],
+            ['\nDu står i djungeln bredvid en liten stuga, dörren står på glänt', 'Det finns en stuga %(direction)s', 'Ytterdörren finns %(direction)s'],
             [directions.left, directions.right]
             )
 
         jungle1 = Tile(
             3, 3,
-            ['\nDu befinner dig i jungeln, det finns ett stort träd här som skulle gå att använda till en flotte\n*det hade säkert gått att hugga ner med en yxa*', 'Du ser en öppning bland träden %(direction)sf'],
+            ['\nDu befinner dig i djungeln, det finns ett stort träd här som skulle användas till en flotte\n*det går säkert att hugga ner med en yxa*', 'Du ser en öppning bland träden %(direction)s'],
             [directions.up, directions.down, directions.right, directions.left],
             [items.hatchet]
             )
@@ -181,27 +181,27 @@ class Level():
 
         spikes = Tile(
             5, 3,
-            ['\nDu hoppar ner för klippan och blir spetsad av spikarna där nere','Du kollar ner för klippan %(direction)s om dig och ser några spikar, snälla hoppa inte'],
+            ['\nDu hoppar ner för klippan och blir spetsad av spikarna som satt nedanför klippan','Du kollar ner för klippan %(direction)s om dig och ser några spikar, snälla hoppa inte'],
             tuple()
             )
 
         # Rad 4
         turtle = Tile(
             2, 4,
-            ['\nDu står på stranden, nära dig ligger en sköldpadda', 'Du ser en stor sköldpadda %(direction)s'],
+            ['\nDu står på stranden, i närheten ligger en sköldpadda', 'Du ser en stor sköldpadda %(direction)s'],
             [directions.right],
             [items.golden_seaweed]
             )
 
         base = Tile(
             3, 4,
-            ['\nDu är tillbaka till där du vaknade upp brevid den nu slocknade lägerelden', 'Du ser en slocknad lägereld %(direction)s, det är stället du vaknade upp på'],
+            ['\nDu är tillbaka där du vaknade upp brevid den slocknade lägerelden', 'Du ser en slocknad lägereld %(direction)s, det är stället du vaknade upp på'],
             [directions.right, directions.left, directions.up]
             )
 
         beach = Tile(
             4, 4,
-            ['\nDu ser inget speciellt förutom något du inte kan identifiera som sticker ut ur sanden\n*om jag har en spade kanske jag hade kunnat gräva upp det*', 'Stranden fortsätter %(direction)s'],
+            ['\nDu ser ett föremål som sticker fram ur sanden\n*om jag skaffar en spade kan jag nog gräva upp föremålet*', 'Stranden fortsätter %(direction)s'],
             [directions.left],
             [items.shovel],
             items.dynamite

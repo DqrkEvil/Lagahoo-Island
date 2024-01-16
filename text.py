@@ -65,11 +65,11 @@ D / pil höger: {directions.right}
 
 i: information
 
-m: öppna kartan
-
 e: använd föremål
 
-q: plocka upp föremål i nuvarande rum
+q: plocka upp föremål
+
+f: lista föremål du har
 
 Spelet sparas varje gång du återvänder till startplatsen på stranden"""
 

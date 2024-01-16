@@ -19,7 +19,7 @@ class Tile():
                  y: int,
                  descriptions: list[str],
                  available_directions: list,
-                 usable_items: list | None = None,
+                 usable_item: str | None = None,
                  findable_item: str | None = None
                  ) -> None:
         '''Skapa en ny tile
@@ -35,7 +35,7 @@ class Tile():
 
         self.descriptions = descriptions
         self.available_directions = available_directions
-        self.usable_items = usable_items if usable_items else []  # Måste vara en lista för att koden ska fungera
+        self.usable_item = usable_item
         self.findable_item = findable_item
 
         self.explored = False
@@ -112,7 +112,7 @@ class Level():
             4, 1,
             ['\nDu går djupare in i grottan och ser en bergvägg som ser instabil ut.\n*jag kanske kan använda dynamit för att spränga väggen*', 'Grottan fortsätter %(direction)s'],
             [directions.down],
-            [items.dynamite]
+            items.dynamite
             )
 
         hidden_cave = Tile(
@@ -140,7 +140,7 @@ class Level():
             3, 2,
             ['\nDu ser en apa som står på några lådor\n*det kanske finns något användbart i lådorna*', 'Du ser en apa som står på några lådor %(direction)s'],
             [directions.up, directions.down],
-            [items.hatchet]
+            items.hatchet
             )
 
         cave_entrance = Tile(
@@ -192,7 +192,7 @@ class Level():
             2, 4,
             ['\nDu står på stranden, i närheten ligger en sköldpadda', 'Du ser en stor sköldpadda %(direction)s'],
             [directions.right],
-            [items.golden_seaweed]
+            items.golden_seaweed
             )
 
         base = Tile(
@@ -203,9 +203,9 @@ class Level():
 
         beach = Tile(
             4, 4,
-            ['\nDu ser ett föremål som sticker fram ur sanden\n*om jag skaffar en spade kan jag nog gräva upp föremålet*', 'Stranden fortsätter %(direction)s'],
+            ['\nDu ser ett föremål som sticker fram ur sanden\n*om jag har en spade kan jag nog gräva upp det*', 'Stranden fortsätter %(direction)s'],
             [directions.left],
-            [items.shovel],
+            items.shovel,
             items.dynamite
             )
 

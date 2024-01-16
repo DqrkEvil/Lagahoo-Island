@@ -58,11 +58,11 @@ class Controls():
 
         keyboard.add_hotkey("i", lambda: self.key_pressed("info"))
 
-        keyboard.add_hotkey("m", lambda: self.key_pressed("map"))
-
         keyboard.add_hotkey("e", lambda: self.key_pressed("use item"))
 
         keyboard.add_hotkey("q", lambda: self.key_pressed("pickup"))
+
+        keyboard.add_hotkey('f', lambda: self.key_pressed("list inventory"))
 
 def integer_input(*acceptable_values, error_text: str = 'Det där var inte ett möjligt val') -> int:
     '''Tar en input från avnändaren som måste vara en int'''
@@ -84,6 +84,15 @@ def printMainMenu():
     time.sleep(1.4)
     input(text.startGameText)
     os.system('cls')
+
+def printLore():
+    """Skriv ut bakgrundsinformation om storyn till spelet"""
+    print(text.preGameLore)
+
+def printControls():
+    """Skriv ut kontrollerna och vänta tills spelaren vill börja"""
+    print(text.controlInfo)
+
 
 def standardPrint(*sections, add_dots: bool = True):
     """Standardiserad print funktion för hela programmet

@@ -36,8 +36,8 @@ def main():
 
     # Börja skriva ut saker till användaren
     IO.printMainMenu()
-
-    #TODO printa ut information om lore och kontroller
+    IO.printLore()
+    IO.printControls()
 
     save_data, game_slot = saving.select_slot()
     os.system('cls')
@@ -78,11 +78,6 @@ def main():
             logger.debug('Info print triggered')
             standardPrint(text.controlInfo)
 
-        elif key == 'map':
-            logger.debug('Open map triggered')
-            #TODO Print map
-            standardPrint('map opened WIP')
-
         elif key == 'use item':
             logger.debug('Item usage triggered')
             items.use_item(current_tile, game_level)
@@ -90,6 +85,10 @@ def main():
         elif key == 'pickup':
             logger.info('Item pickup triggered')
             items.pickup_item(current_tile, game_level)
+
+        elif key == 'list inventory':
+            logger.info('List inventory triggered')
+            items.list_items()
 
         # Sätt nuvarande tile till tile åt det valda hållet
         elif key in current_tile.available_directions:

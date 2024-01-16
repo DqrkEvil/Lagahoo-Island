@@ -4,6 +4,7 @@ import logging
 
 import directions
 import IO
+import text
 import level
 
 logger = logging.getLogger('__main__')
@@ -14,10 +15,10 @@ shovel = 'spade'
 torch = 'fackla'
 dynamite = 'dynamit'
 hatchet = 'yxa'
-materials = "plankor och lianer"
+materials = 'plankor och lianer'
 
 # Spelarens inventory
-inventory = [shovel]
+inventory = []
 
 # Funktioner
 def pickup_item(current_tile: level.Tile, game_level: level.Level) -> None:
@@ -54,19 +55,20 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
         # Vad olika items gör när man använder dom på tiles där man kan använda dom
         if item == golden_seaweed:
-            IO.standardPrint("Sköldpaddan blev väldigt glad och hjälpte dig komma tillbaka till fastlandet genom att låta dig rida på den.\nGrattis, Du vann spelet!!!")
+            IO.standardPrint(text.postGameLore['turtle'])
+            # IO.standardPrint('Sköldpaddan blev väldigt glad och hjälpte dig komma tillbaka till fastlandet genom att låta dig rida på den.\nGrattis, Du vann spelet!!!')
 
         elif item == shovel:
-            IO.standardPrint("Du använder spaden för att gräva upp en dynamit")
+            IO.standardPrint('Du använder spaden för att gräva upp en dynamit')
 
             # Uppdatera tile attribut
-            current_tile.usable_item = None
+            current_tile.usable_item = materials
             current_tile.findable_item = None
-            current_tile.descriptions[0] = '\nDet är bara en tom strand här, och ett hål där dynamiten var.'
+            current_tile.descriptions[0] = '\nDet är bara en tom strand här, och ett hål där dynamiten var.\n*Jag skulle kunna sjösätta en flotte här*'
             inventory.append(dynamite)
 
         elif item == dynamite:
-            IO.standardPrint("Du la ner dynamiten och den expoderade")
+            IO.standardPrint('Du la ner dynamiten och den expoderade')
 
             # Uppdatera tile attribut
             current_tile.usable_item = None
@@ -74,7 +76,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
             current_tile.connections('add', directions.right, game_level)
 
         elif item == hatchet and current_tile.y == 3:
-            IO.standardPrint("Du hugger ner trädet och får plankor och lianer.\n*detta är perfekt att bygga en flotte av*")
+            IO.standardPrint('Du hugger ner trädet och får plankor och lianer.\n*detta är perfekt att bygga en flotte av*')
 
             # Uppdatera tile attribut
             current_tile.usable_item = None
@@ -83,7 +85,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
         elif item == hatchet and current_tile.y == 2:
             # Om man använder yxan på tile med apan och lådorna
-            IO.standardPrint("Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dem, som tack flyttade apan ur vägen så du nu kan gå vidare")
+            IO.standardPrint('Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dem, som tack flyttade apan ur vägen så du nu kan gå vidare')
 
             # Uppdatera tile attribut
             current_tile.usable_item = None

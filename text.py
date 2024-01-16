@@ -2,7 +2,7 @@
 
 import directions
 
-mainMenuText = r"""
+mainMenuText = r'''
 
 
 
@@ -26,12 +26,12 @@ mainMenuText = r"""
                             └───────────────────────────────────────────────────────────────────────────────┘
 
                             
-"""
+'''
 
-startGameText = "                                                      Tryck ENTER för att starta spelet"
+startGameText = '                                                      Tryck ENTER för att starta spelet'
 
 # ASCII art tagen från https://www.reddit.com/r/ASCII_Archive/comments/ewsf5g/the_night_sky/
-preGameLore = """
+preGameLore = '''
 .　　　　　　　　　　 ✦ 　　　　   　 　　　˚　　　　　　　　　　　　　　　　　　　　   
 　　　　　　　　　　　　　.　　　☄　　　　　　　　 　　　. 　　 　　　　　　　 ✦ 　　　　　　　　　　 
 ‍ ‍ ‍ ‍ 　　　　 　　　　　　　　　　　　,　　   　 .　　　　　　　　　　　　　.　　　ﾟ　  　　　.　　　　　　　　　　　　　
@@ -53,9 +53,16 @@ Vad hände med de andra, är det saken som vi skulle undersöka som är anlednin
 Hur ska jag komma tillbaka till fastlandet?
 Är jag den enda överlevaren?
 Desto mer du ligger och tänker desto tyngre blir ögonlocken.
-Till slut blir det svart."""
+Till slut blir det svart.'''
 
-controlInfo = f"""Information:
+postGameLore = {
+    'turtle': '''
+    Du kommer hem efter att ha varit på ön i flera veckor med sköldpaddan vid din sida. Din första tankte är vart din familj är
+    och när du öppnar dörren så ''',
+    'raft': ''''''
+}
+
+controlInfo = f'''Information:
 
 Använd WASD eller piltangenterna för att gå runt:
 W / pil upp: {directions.up}
@@ -71,9 +78,9 @@ q: plocka upp föremål
 
 f: lista föremål du har
 
-Spelet sparas varje gång du återvänder till startplatsen på stranden"""
+Spelet sparas varje gång du återvänder till startplatsen på stranden'''
 
-slotSelection = """%(slot_selection)s
+slotSelection = '''%(slot_selection)s
  .-------------------.    .-------------------.    .-------------------. 
 | .-----------------. |  | .-----------------. |  | .-----------------. |
 | |       __        | |  | |      _____      | |  | |      ______     | |
@@ -86,6 +93,6 @@ slotSelection = """%(slot_selection)s
 | |  Senast använt: | |  | |  Senast använt: | |  | |  Senast använt: | |
 | |  %(slot1)-12s   | |  | |  %(slot2)-12s   | |  | |  %(slot3)-12s   | |
 | '-----------------' |  | '-----------------' |  | '-----------------' |
- '-------------------'    '-------------------'    '-------------------' """
+ '-------------------'    '-------------------'    '-------------------' '''
 
-parrot_riddle = ("Vad har fyra ben på dagen men sex ben på natten?(lämna svaret tomt för att gå tillbaka)", ("sängen", "en säng", "säng", "sängar","segnen", "en segn", "seng", "sengar","sägnen", "en sägn", "sägn", "sägnar","segnen", "en segn", "segn", "segnar"))
+parrot_riddle = ('Vad har fyra ben på dagen men sex ben på natten?(lämna svaret tomt för att gå tillbaka)', ('sängen', 'en säng', 'säng', 'sängar','segnen', 'en segn', 'seng', 'sengar','sägnen', 'en sägn', 'sägn', 'sägnar','segnen', 'en segn', 'segn', 'segnar'))

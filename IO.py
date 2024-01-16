@@ -44,25 +44,25 @@ class Controls():
     def add_hotkeys(self) -> None:
         '''Lägg till hotkeys för att kontrollera'''
 
-        keyboard.add_hotkey("w", lambda: self.key_pressed(directions.up))
-        keyboard.add_hotkey("up arrow", lambda: self.key_pressed(directions.up))
+        keyboard.add_hotkey('w', lambda: self.key_pressed(directions.up))
+        keyboard.add_hotkey('up arrow', lambda: self.key_pressed(directions.up))
 
-        keyboard.add_hotkey("a", lambda: self.key_pressed(directions.left))
-        keyboard.add_hotkey("left arrow", lambda: self.key_pressed(directions.left))
+        keyboard.add_hotkey('a', lambda: self.key_pressed(directions.left))
+        keyboard.add_hotkey('left arrow', lambda: self.key_pressed(directions.left))
 
-        keyboard.add_hotkey("s", lambda: self.key_pressed(directions.down))
-        keyboard.add_hotkey("down arrow", lambda: self.key_pressed(directions.down))
+        keyboard.add_hotkey('s', lambda: self.key_pressed(directions.down))
+        keyboard.add_hotkey('down arrow', lambda: self.key_pressed(directions.down))
 
-        keyboard.add_hotkey("d", lambda: self.key_pressed(directions.right))
-        keyboard.add_hotkey("right arrow", lambda: self.key_pressed(directions.right))
+        keyboard.add_hotkey('d', lambda: self.key_pressed(directions.right))
+        keyboard.add_hotkey('right arrow', lambda: self.key_pressed(directions.right))
 
-        keyboard.add_hotkey("i", lambda: self.key_pressed("info"))
+        keyboard.add_hotkey('i', lambda: self.key_pressed('info'))
 
-        keyboard.add_hotkey("e", lambda: self.key_pressed("use item"))
+        keyboard.add_hotkey('e', lambda: self.key_pressed('use item'))
 
-        keyboard.add_hotkey("q", lambda: self.key_pressed("pickup"))
+        keyboard.add_hotkey('q', lambda: self.key_pressed('pickup'))
 
-        keyboard.add_hotkey('f', lambda: self.key_pressed("list inventory"))
+        keyboard.add_hotkey('f', lambda: self.key_pressed('list inventory'))
 
 def integer_input(*acceptable_values, error_text: str = 'Det där var inte ett möjligt val') -> int:
     '''Tar en input från avnändaren som måste vara en int'''
@@ -77,7 +77,7 @@ def integer_input(*acceptable_values, error_text: str = 'Det där var inte ett m
 
 #* Outputs
 def printMainMenu():
-    """Skriv ut main menyn och vänta tills spelaren vill börja"""
+    '''Skriv ut main menyn och vänta tills spelaren vill börja'''
 
     os.system('cls')
     print(fade.greenblue(text.mainMenuText))
@@ -86,19 +86,20 @@ def printMainMenu():
     os.system('cls')
 
 def printLore():
-    """Skriv ut bakgrundsinformation om storyn till spelet"""
+    '''Skriv ut bakgrundsinformation om storyn till spelet'''
+    
     print(text.preGameLore)
 
 def printControls():
-    """Skriv ut kontrollerna och vänta tills spelaren vill börja"""
-    print(text.controlInfo)
+    '''Skriv ut kontrollerna och vänta tills spelaren vill börja'''
 
+    print(f'\n{text.controlInfo}')
 
 def standardPrint(*sections, add_dots: bool = True):
-    """Standardiserad print funktion för hela programmet
+    '''Standardiserad print funktion för hela programmet
     
     :*sections: sektioner med all information som ska skrivas ut
-    :add_dots: Lägg till punkter mellan sektionerna"""
+    :add_dots: Lägg till punkter mellan sektionerna'''
 
     for section in sections:
         for char in section:

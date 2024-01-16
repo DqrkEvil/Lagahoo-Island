@@ -36,8 +36,6 @@ def main():
 
     # Börja skriva ut saker till användaren
     IO.printMainMenu()
-    IO.printLore()
-    IO.printControls()
 
     save_data, game_slot = saving.select_slot()
     os.system('cls')
@@ -53,6 +51,11 @@ def main():
     else:
         game_level = level.Level()
         logger.info('New map generated')
+
+        IO.printLore()
+        IO.printControls()
+        input('\nTryck ENTER för att fortsätta')
+        os.system('cls')
 
     # Skapa kontroller
     controls = IO.Controls()
@@ -76,7 +79,7 @@ def main():
 
         if key == 'info':
             logger.debug('Info print triggered')
-            standardPrint(text.controlInfo)
+            IO.printControls()
 
         elif key == 'use item':
             logger.debug('Item usage triggered')

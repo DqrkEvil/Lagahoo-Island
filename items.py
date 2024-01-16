@@ -65,6 +65,9 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
             current_tile.descriptions[0] = '\nDet är bara en tom strand här, och ett hål där dynamiten var.'
             inventory.append(dynamite)
 
+        elif item == dynamite:
+            IO.standardPrint("Du la ner dynamiten och den expoderade")
+
             # Uppdatera tile attribut
             current_tile.usable_item = None
             current_tile.descriptions[0] = 'Du är djupare i grottan, det ligger grus och större stenblock på golvet'
@@ -80,7 +83,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
         elif item == hatchet and current_tile.y == 2:
             # Om man använder yxan på tile med apan och lådorna
-            IO.standardPrint("Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dom, som tack flyttade apan ur vägen så du nu kan gå vidare")
+            IO.standardPrint("Du förstörde lådorna som apan står på så apan kan få bananerna som var inuti dem, som tack flyttade apan ur vägen så du nu kan gå vidare")
 
             # Uppdatera tile attribut
             current_tile.usable_item = None
@@ -95,4 +98,4 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 def list_items() -> None:
     '''Lista alla föremål man har'''
 
-    IO.standardPrint('Du har:', *inventory)
+    IO.standardPrint('Du har:', *inventory, add_dots=False)

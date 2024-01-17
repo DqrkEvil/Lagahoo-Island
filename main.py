@@ -10,7 +10,6 @@ import items
 import events
 import level
 import saving
-import text
 from IO import standardPrint
 
 logger = logging.getLogger(__name__)
@@ -67,8 +66,7 @@ def main():
     while True:
         current_tile = game_level.current_tile
 
-        logger.debug(f'Now on tile {current_tile.x},{current_tile.y}')
-        current_tile.set_explored(True)
+        logger.info(f'Now on tile {current_tile.x},{current_tile.y}')
 
         standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile))
         events.tile_event(current_tile, game_level, game_slot)

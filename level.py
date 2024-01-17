@@ -1,5 +1,6 @@
 '''Hanterar allting som har med kartan att göra'''
 
+# För att använda klasser och funktioner i typ förslag innan det deklarerats
 from __future__ import annotations
 
 import logging
@@ -37,13 +38,6 @@ class Tile():
         self.available_directions = available_directions
         self.usable_item = usable_item
         self.findable_item = findable_item
-
-        self.explored = False
-
-    def set_explored(self, explored: bool) -> None:
-        '''Denna tile har har besökts'''
-
-        self.explored = explored
 
     def connections(self, method: Literal['add', 'remove'], direction: str, level: Level, one_way: bool = False):
         '''Ändra vilka kopplingar som finns mellan tiles
@@ -91,7 +85,7 @@ class Level():
 
         self.current_tile = self.get_tile(3, 4)
 
-    def generate_level(self) -> list[list[Tile | None]]:
+    def generate_level(self) -> tuple[tuple[Tile | None]]:
         '''Skapa kartan för spelet'''
 
         # Rad 1
@@ -177,7 +171,7 @@ class Level():
 
         mountain = Tile(
             4, 3,
-            ['\nDu finner dig högt upp i bergen, oj vad kallt det var här.\nDet finns en mörk grotta framför dig\n*här skulle det vara bra att ha en fackla*', 'Du ser några höga berg %(direction)s'],
+            ['\nDu finner dig högt upp i bergen, oj vad kallt det var här.\nDet finns en mörk grotta framför dig.\n*Jag behöver nog en fackla för att kunna gå in där*', 'Du ser några höga berg %(direction)s'],
             [directions.right, directions.left]
             )
 
@@ -203,13 +197,13 @@ class Level():
 
         beach = Tile(
             4, 4,
-            ['\nDu ser ett föremål som sticker fram ur sanden\n*om jag har en spade kan jag nog gräva upp det*', 'Stranden fortsätter %(direction)s'],
+            ['\nDu ser ett föremål som sticker fram ur sanden.\n*om jag har en spade kan jag nog gräva upp det*', 'Stranden fortsätter %(direction)s'],
             [directions.left],
             items.shovel,
             items.dynamite
             )
 
-        # Returnera kartan med alla tiles
+        # Returnera kartan med alla tiles organiserade i en 2D tuple
         return (
             (None, parrot, jungle2, cave1, hidden_cave),
             (kitchen, lake, monkey, cave_entrance, cave2),
@@ -228,12 +222,12 @@ class Level():
             # Hämta tile från den nya kartan vid samma position
             new_tile = self.get_tile(saved_tile['x'], saved_tile['y'])
 
-            # Gå igenom alla sparade ändringar och ändra på den riktiga kartan
-            for attribute in set(saved_tile.keys()) - {'x', 'y'}:  # ChatGPT lärde mig om set operationer som
+            # Gå igenom alla sparade ändringar och ändra på den riktiga kartan, förutom x och y
+            for attribute in set(saved_tile.keys()) - {'x', 'y'}:
 
                 setattr(new_tile, attribute, saved_tile[attribute])
 
-    def get_tile(self, x: int | None = None, y: int | None = None, tile: Tile | None = None, direction: str | None = None) -> Tile:
+    def get_tile(self, x: int | None = None, y: int | None = None, tile: Tile | None = None, direction: str | None = None) -> Tile | None:
         '''Tile objekt vid koordinat x, y eller åt ett håll från nuvarande. 1, 1 är övre vänstra hörnet'''
 
         if x and y:
@@ -268,7 +262,7 @@ class Level():
             if not adjacent_tile.descriptions[1]:
                 continue
 
-            # Några speciella beskrivningar
+            # Speciella beskrivningar
             # Från insidan av huset mot utsidan
             if tile.x == 1 and tile.y == 3 and direction == directions.right:
                 descriptions.append(adjacent_tile.descriptions[2] % {'direction': direction})
@@ -278,12 +272,12 @@ class Level():
             descriptions.append(adjacent_tile.descriptions[1] % {'direction': direction})
 
         # Stooooor bokstav (ifall beskrivningen börjar med '%(direction)s')
-        return [description.capitalize() for description in descriptions]
+        return descriptions
 
     def compress_tiles(self) -> list:
-        '''Komprimera alla tiles till en lista med tiles som bara inkluderar skillnader från en ny karta'''
+        '''Komprimera alla tiles till en lista med tiles som bara inkluderar skillnader från en ny karta och koordinater'''
 
-        current_tiles = tuple(tile for row in self.level for tile in row) # lite cred till ChatGPT för en del av generatorn: (expression for outer_item in outer_sequence for inner_item in inner_sequence)
+        current_tiles = tuple(tile for row in self.level for tile in row) # lite cred till ChatGPT för generatorn: (expression for outer_item in outer_sequence for inner_item in inner_sequence)
         new_tiles = tuple(tile for row in self.generate_level() for tile in row)
         saving_tiles = []
 

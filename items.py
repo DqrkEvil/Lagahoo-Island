@@ -56,7 +56,11 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
         # Vad olika items gör när man använder dom på tiles där man kan använda dom
         if item == golden_seaweed:
             IO.standardPrint(text.postGameLore['turtle'])
-            # IO.standardPrint('Sköldpaddan blev väldigt glad och hjälpte dig komma tillbaka till fastlandet genom att låta dig rida på den.\nGrattis, Du vann spelet!!!')
+            game_level.current_tile = game_level.get_tile(3, 4)
+
+        elif item == materials:
+            IO.standardPrint(text.postGameLore['raft'])
+            game_level.current_tile = game_level.get_tile(3, 4)
 
         elif item == shovel:
             IO.standardPrint('Du använder spaden för att gräva upp en dynamit')
@@ -65,10 +69,11 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
             current_tile.usable_item = materials
             current_tile.findable_item = None
             current_tile.descriptions[0] = '\nDet är bara en tom strand här, och ett hål där dynamiten var.\n*Jag skulle kunna sjösätta en flotte här*'
+
             inventory.append(dynamite)
 
         elif item == dynamite:
-            IO.standardPrint('Du la ner dynamiten och den expoderade')
+            IO.standardPrint('Du tände dynamiten och placerade den nära väggen. Efter ljudet av en explosion går du tillbaka')
 
             # Uppdatera tile attribut
             current_tile.usable_item = None

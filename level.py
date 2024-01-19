@@ -97,7 +97,7 @@ class Level():
 
         jungle2 = Tile(
             3, 1,
-            ['\nDu ser en gravsten med en spade som sticker fram', 'Det finns en gravsten %(direction)s'],
+            ['\nDu ser en gravsten med en spade som sticker upp ur marken', 'Det finns en gravsten %(direction)s'],
             [directions.down],
             findable_item=items.shovel
             )
@@ -119,7 +119,7 @@ class Level():
         # Rad 2
         kitchen = Tile(
             1, 2,
-            ['\nDu är i stugans kök', 'Stugans kök är %(direction)s'],
+            [f'\nDu är i stugans kök. Det ligger en {items.torch} på en hylla\n*den där kan nog vara användbar', 'Stugans kök är %(direction)s'],
             [directions.down],
             findable_item=items.torch
             )

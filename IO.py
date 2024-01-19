@@ -101,14 +101,15 @@ def standardPrint(*sections, add_dots: bool = True):
     :*sections: sektioner med all information som ska skrivas ut
     :add_dots: Lägg till punkter mellan sektionerna'''
 
-    line_end = '. ' if add_dots else ''
+    section_end = '. ' if add_dots else ''
 
     for section in sections:
-        for char in section:
-            # https://replit.com/talk/ask/How-to-make-your-text-appear-fluidly-instead-of-one-big-chunk-in-Python/111394
-            sys.stdout.write(char)
-            sys.stdout.flush()
-            time.sleep(0.03)
-        print(line_end)
+        if section:
+            for char in section:
+                # https://replit.com/talk/ask/How-to-make-your-text-appear-fluidly-instead-of-one-big-chunk-in-Python/111394
+                sys.stdout.write(char)
+                sys.stdout.flush()
+                time.sleep(0.03)
+            print(section_end)
 
     print('\n')

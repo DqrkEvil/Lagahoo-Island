@@ -33,6 +33,8 @@ def pickup_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
         # Lägg till väg till grottan om man plockar upp fackla
         if item == torch:
+            current_tile.descriptions[0] = '\nDu är i stugans kök'
+
             mountain_tile = game_level.get_tile(4, 3)
             mountain_tile.descriptions[0] = 'Du finner dig högt upp i bergen, oj vad kallt det var här.'
             mountain_tile.connections('add', directions.up, game_level)

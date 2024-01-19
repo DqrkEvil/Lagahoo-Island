@@ -96,7 +96,7 @@ def main():
             logger.debug('Movement triggered')
             game_level.current_tile = game_level.get_tile(tile=current_tile, direction=key)
 
-        # Om man trycker på en tangent som gör något
+        # Om man trycker på en tangent som inte gör något
         else:
             standardPrint('Du kan inte gå åt det hållet')
             time.sleep(1)

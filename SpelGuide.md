@@ -9,6 +9,33 @@
 ---
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Spoilers!!!
 För att klara spelet behöver du först gå fram tills du kan ta upp spaden, sedan gå tillbaka 2 steg och gå in till huset åt vänster om dig, där kan du plocka upp en fackla. Efter det kan du gå till stranden och gräva upp dynamiten som du nu kan använda för att gå in i den hemliga delen av grottan där du kan få en yxa som du kan använda för 2 olika saker
 
@@ -19,6 +46,29 @@ För att klara spelet behöver du först gå fram tills du kan ta upp spaden, se
 se kartan under ifall du tappar bort dig
 
 https://app.diagrams.net/#G1Tsxi-tcPhRDexzwQGCSoSpEp3g8QmN8W
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -42,6 +42,9 @@ def pickup_item(current_tile: level.Tile, game_level: level.Level) -> None:
         if item == shovel:
             current_tile.descriptions[0] = '\nDu ser en gravsten'
 
+        if item == hatchet:
+            current_tile.descriptions[0] = '\nDet finns en tom pedistal här'
+
         logger.info(f'Picked up {item}')
         IO.standardPrint(f'Du plockade upp: {item}')
 
@@ -69,7 +72,6 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
             # Uppdatera tile attribut
             current_tile.usable_item = materials
-            current_tile.findable_item = None
             current_tile.descriptions[0] = '\nDet är bara en tom strand här, och ett hål där dynamiten var.\n*Jag skulle kunna sjösätta en flotte här*'
 
             inventory.append(dynamite)
@@ -102,7 +104,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
         logger.info(f'Used {item} on {current_tile.x},{current_tile.y}')
 
     else:
-        IO.standardPrint('Du kan inte använda något här')
+        IO.standardPrint('Du har inget att använda här')
 
 def list_items() -> None:
     '''Lista alla föremål man har'''

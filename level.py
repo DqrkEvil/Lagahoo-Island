@@ -166,7 +166,7 @@ class Level():
             3, 3,
             ['\nDu befinner dig i djungeln, det finns ett stort träd här som skulle användas till en flotte.\n*det går säkert att hugga ner med en yxa*', 'Du ser en öppning bland träden %(direction)s'],
             [directions.up, directions.down, directions.right, directions.left],
-            [items.hatchet]
+            items.hatchet
             )
 
         mountain = Tile(
@@ -191,7 +191,7 @@ class Level():
 
         base = Tile(
             3, 4,
-            ['\nDu är tillbaka där du vaknade upp brevid den slocknade lägerelden', 'Du ser en slocknad lägereld %(direction)s, det är stället du vaknade upp på'],
+            ['\n(:Spelet sparades:)\nDu är tillbaka där du vaknade upp brevid den slocknade lägerelden', 'Du ser en slocknad lägereld %(direction)s, det är stället du vaknade upp på'],
             [directions.right, directions.left, directions.up]
             )
 
@@ -199,8 +199,7 @@ class Level():
             4, 4,
             ['\nDu ser ett föremål som sticker fram ur sanden.\n*om jag har en spade kan jag nog gräva upp det*', 'Stranden fortsätter %(direction)s'],
             [directions.left],
-            items.shovel,
-            items.dynamite
+            items.shovel
             )
 
         # Returnera kartan med alla tiles organiserade i en 2D tuple

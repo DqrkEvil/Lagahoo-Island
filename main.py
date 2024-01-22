@@ -69,7 +69,11 @@ def main():
         logger.info(f'Now on tile {current_tile.x},{current_tile.y}')
 
         standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile))
-        events.tile_event(current_tile, game_level, game_slot)
+        skip_iteration = events.tile_event(current_tile, game_level, game_slot)
+
+        # Om tile event kräver att spelet startar igen
+        if skip_iteration:
+            continue
 
         key = controls.await_input()
 

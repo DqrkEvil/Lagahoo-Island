@@ -1,12 +1,14 @@
 '''Plats för alla events'''
 
 import logging
+import keyboard
+import time
 
+import IO
+import items
 import level
 import saving
 import text
-import items
-import IO
 
 logger = logging.getLogger('__main__')
 
@@ -21,7 +23,7 @@ def tile_event(current_tile: level.Tile, game_level: level.Level, game_slot: int
         # Spara spel
         tiles = game_level.compress_tiles()
         logger.debug(f'Current inventory to save: {items.inventory}')
-        logger.debug(f'Current map ready for saving, first tiles preview: {tiles[:4]}')
+        logger.debug(f'Current map ready for saving, first tile preview: {tiles[0]}')
 
         saving.save(
             game_slot,
@@ -40,7 +42,7 @@ def tile_event(current_tile: level.Tile, game_level: level.Level, game_slot: int
             if answer in text.parrot_riddle[1]:
                 IO.standardPrint(f'Du hade rätt.\nPapegojan gav dig {items.golden_seaweed}')
                 items.inventory.append(items.golden_seaweed)
-                current_tile.descriptions[0] = '\nPapegojan är glad att du kunde svaret till dens gåta.\n *sköldpaddan vid stranden skulle nog uppskatta sjögrässet*'
+                current_tile.descriptions[0] = '\nPapegojan är glad att du kunde svaret till dens gåta.\n*Sköldpaddan vid stranden skulle nog uppskatta sjögräset*'
                 break
 
             if not answer:
@@ -55,3 +57,14 @@ def tile_event(current_tile: level.Tile, game_level: level.Level, game_slot: int
         return True
 
     return False
+
+def ending():
+    for n in range(15, -1, -1):
+        time.sleep(1)
+        print(f"{n} ", end="\r")
+    
+    keyboard.send("windows+d")
+    time.sleep(0.5)
+    keyboard.send("alt+F4")
+    time.sleep(0.5)
+    keyboard.send("enter")

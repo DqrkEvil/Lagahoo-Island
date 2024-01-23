@@ -1,11 +1,11 @@
 '''Fil för alla föremål'''
 
 import logging
-
 import directions
 import IO
 import text
 import level
+import events
 
 logger = logging.getLogger('__main__')
 
@@ -61,11 +61,11 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
         # Vad olika items gör när man använder dom på tiles där man kan använda dom
         if item == golden_seaweed:
             IO.standardPrint(text.postGameLore['turtle'])
-            game_level.current_tile = game_level.get_tile(3, 4)
+            events.ending()
 
         elif item == materials:
             IO.standardPrint(text.postGameLore['raft'])
-            game_level.current_tile = game_level.get_tile(3, 4)
+            events.ending()
 
         elif item == shovel:
             IO.standardPrint('Du använder spaden för att gräva upp en dynamit')

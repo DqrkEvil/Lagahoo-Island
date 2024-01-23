@@ -55,8 +55,8 @@ Desto mer du ligger och tänker desto tyngre blir ögonlocken.
 Till slut blir det svart.'''
 
 postGameLore = {
-    'turtle': 'Du kommer hem efter att ha varit på ön i flera veckor med sköldpaddan vid din sida. Din första tankte är vart din familj är och när du öppnar dörren så ser du en annan familj i ditt hus. Åh nej du har inte betalat ränta och har blivit av med ditt hus. Men det är lungt för sköldpaddan låter dig bo med den så ni lever lyckliga i alla era dar',
-    'raft': 'Du kommer hem och din familj är överlyckliga att se dig. Dom har varit så oroliga och tagit hand om ditt hus och din katt åt dig.'
+    'turtle': 'Du ger sköldpaddan det guldiga sjögräset och som tack hjälper den dig ifrån ön \nDu kommer hem efter att ha varit på ön i flera veckor med sköldpaddan vid din sida. Din första tankte är vart din familj är och när du öppnar dörren så ser du en annan familj i ditt hus. Åh nej du har inte betalat ränta och har blivit av med ditt hus. Men det är lungt för sköldpaddan låter dig bo med den så ni lever lyckliga i alla era dar',
+    'raft': 'Du använder materialen för att bygga en flåtte som du använder att fly från ön och när du kommer hem och din familj är överlyckliga att se dig. Dom har varit så oroliga och tagit hand om ditt hus och din katt åt dig.'
 }
 
 controlInfo = f'''Information:

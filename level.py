@@ -119,7 +119,7 @@ class Level():
         # Rad 2
         kitchen = Tile(
             1, 2,
-            [f'\nDu är i stugans kök. Det ligger en {items.torch} på en hylla\n*den där kan nog vara användbar', 'Stugans kök är %(direction)s'],
+            [f'\nDu är i stugans kök. Det ligger en {items.torch} på en hylla.\n*den där kan nog vara användbar*', 'Stugans kök är %(direction)s'],
             [directions.down],
             findable_item=items.torch
             )
@@ -132,7 +132,7 @@ class Level():
 
         monkey = Tile(
             3, 2,
-            ['\nDu ser en apa som står på några lådor\n*det kanske finns något användbart i lådorna*', 'Du ser en apa som står på några lådor %(direction)s'],
+            ['\nDu ser en apa som står på några lådor.\n*det kanske finns något användbart i lådorna*', 'Du ser en apa som står på några lådor %(direction)s'],
             [directions.up, directions.down],
             items.hatchet
             )
@@ -152,7 +152,7 @@ class Level():
         # Rad 3
         hall = Tile(
             1, 3,
-            ['\nDu är i hallen av stugan\n', 'Stugans hall är %(direction)s'],
+            ['\nDu är i hallen av stugan', 'Stugans hall är %(direction)s'],
             [directions.up, directions.right]
             )
 

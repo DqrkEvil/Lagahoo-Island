@@ -29,6 +29,7 @@ class Controls():
         self.key = None
 
         # Vänta tills en annan knapp trycks ner
+        logger.info('Awaiting keyboard input')
         while True:
             if self.key is not None:
                 return self.key

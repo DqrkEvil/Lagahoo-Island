@@ -45,7 +45,8 @@ preGameLore = ('''
 　　　　　　　　　　　　　　　.　　　　　　　　　　　　　　 ✦
 　　　　　　　　　　　　　 　           　　　　　　　　　　　　　　　　　　　. ˚　　　 　   . ,
 　　　　　　　　　　　  　　　　 　　,　　　 ‍ ‍ ‍ ‍ 　 　　　　　　　　　　　　.　　　　　 　　 　　　
-'''),('''
+'''
+, '''
 Du ligger på den fuktiga sanden, den tropiska luften fyller dina lungor medans du stirrar upp i det djupt mörkblå eviga tomrum fullt av stjärnor. 
 Tankarna väller fram; 
 Vad hände med de andra, är det saken som vi skulle undersöka som är anledningen till att de har försvunnit? 

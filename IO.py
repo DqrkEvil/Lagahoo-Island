@@ -90,8 +90,9 @@ def printMainMenu():
 def printLore():
     '''Skriv ut bakgrundsinformation om storyn till spelet'''
 
-    print(text.preGameLore)
-    time.sleep(3)
+    print(text.preGameLore[0])
+    time.sleep(1)
+    standardPrint(text.preGameLore[1])
     input('\nTryck ENTER för att fortsätta')
 
 def printControls():
@@ -106,7 +107,7 @@ def standardPrint(*sections, add_dots: bool = True, explored: bool = False):
     :add_dots: Lägg till punkter mellan sektionerna'''
 
     section_end = '. ' if add_dots else ''
-    char_delay = 0.02 if explored else 0.04
+    char_delay = 0.018 if explored else 0.04
 
     for section in sections:
         if section:

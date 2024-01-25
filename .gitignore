@@ -176,5 +176,5 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 
 ### Lagahoo Island specific ###
-# save file
+# Save file
 saves.json

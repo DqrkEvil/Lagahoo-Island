@@ -39,6 +39,13 @@ class Tile():
         self.usable_item = usable_item
         self.findable_item = findable_item
 
+        self.explored = False
+
+    def tile_explored(self) -> None:
+        '''Sätt tilen att vara utforskad'''
+
+        self.explored = True
+
     def connections(self, method: Literal['add', 'remove'], direction: str, level: Level, one_way: bool = False):
         '''Ändra vilka kopplingar som finns mellan tiles
         

@@ -77,7 +77,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
             inventory.append(dynamite)
 
         elif item == dynamite:
-            IO.standardPrint('Du tände dynamiten och placerade den nära väggen. Efter ljudet av en explosion går du tillbaka')
+            IO.standardPrint('Du tände dynamiten och placerade den nära väggen, sedan gömmer du dig bakom ett hörn. Efter ljudet av en explosion går du tillbaka')
 
             # Uppdatera tile attribut
             current_tile.usable_item = None

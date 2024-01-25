@@ -92,20 +92,21 @@ def printLore():
 
     print(text.preGameLore)
     time.sleep(3)
-    input("\nTryck ENTER för att fortsätta")
+    input('\nTryck ENTER för att fortsätta')
 
 def printControls():
     '''Skriv ut kontrollerna och vänta tills spelaren vill börja'''
 
     print(f'\n{text.controlInfo}')
 
-def standardPrint(*sections, add_dots: bool = True):
+def standardPrint(*sections, add_dots: bool = True, explored: bool = False):
     '''Standardiserad print funktion för hela programmet
     
     :*sections: sektioner med all information som ska skrivas ut
     :add_dots: Lägg till punkter mellan sektionerna'''
 
     section_end = '. ' if add_dots else ''
+    char_delay = 0.02 if explored else 0.04
 
     for section in sections:
         if section:
@@ -113,7 +114,7 @@ def standardPrint(*sections, add_dots: bool = True):
                 # https://replit.com/talk/ask/How-to-make-your-text-appear-fluidly-instead-of-one-big-chunk-in-Python/111394
                 sys.stdout.write(char)
                 sys.stdout.flush()
-                time.sleep(0.02)
+                time.sleep(char_delay)
             print(section_end)
 
     print('\n')

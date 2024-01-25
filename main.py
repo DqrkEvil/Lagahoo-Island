@@ -68,11 +68,12 @@ def main():
 
         logger.info(f'Now on tile {current_tile.x},{current_tile.y}')
 
-        standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile))
+        standardPrint(current_tile.descriptions[0], *game_level.get_descriptions(current_tile), explored=current_tile.explored)
         skip_iteration = events.tile_event(current_tile, game_level, game_slot)
 
         # Om tile event kräver att spelet startar igen
         if skip_iteration:
+            current_tile.tile_explored()
             continue
 
         key = controls.await_input()
@@ -103,8 +104,9 @@ def main():
         # Om man trycker på en tangent som inte gör något
         else:
             standardPrint('Du kan inte gå åt det hållet')
-            time.sleep(1)
+            time.sleep(0.5)
 
+        current_tile.tile_explored()
         logger.debug('End of main loop')
 
 if __name__ == '__main__':

@@ -61,7 +61,7 @@ def tile_event(current_tile: level.Tile, game_level: level.Level, game_slot: int
 def ending():
     for n in range(15, -1, -1):
         time.sleep(1)
-        print(f"{n} ", end="\r")
+        print(f' {n} ', end='\r')
     
     keyboard.send("windows+d")
     time.sleep(0.5)

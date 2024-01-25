@@ -31,7 +31,7 @@ mainMenuText = r'''
 startGameText = '                                                      Tryck ENTER för att starta spelet'
 
 # ASCII art tagen från https://www.reddit.com/r/ASCII_Archive/comments/ewsf5g/the_night_sky/
-preGameLore = '''
+preGameLore = ('''
 .　　　　　　　　　　 ✦ 　　　　   　 　　　˚　　　　　　　　　　　　　　　　　　　　   
 　　　　　　　　　　　　　.　　　☄　　　　　　　　 　　　. 　　 　　　　　　　 ✦ 　　　　　　　　　　 
 ‍ ‍ ‍ ‍ 　　　　 　　　　　　　　　　　　,　　   　 .　　　　　　　　　　　　　.　　　ﾟ　  　　　.　　　　　　　　　　　　　
@@ -45,7 +45,7 @@ preGameLore = '''
 　　　　　　　　　　　　　　　.　　　　　　　　　　　　　　 ✦
 　　　　　　　　　　　　　 　           　　　　　　　　　　　　　　　　　　　. ˚　　　 　   . ,
 　　　　　　　　　　　  　　　　 　　,　　　 ‍ ‍ ‍ ‍ 　 　　　　　　　　　　　　.　　　　　 　　 　　　
-
+'''),('''
 Du ligger på den fuktiga sanden, den tropiska luften fyller dina lungor medans du stirrar upp i det djupt mörkblå eviga tomrum fullt av stjärnor. 
 Tankarna väller fram; 
 Vad hände med de andra, är det saken som vi skulle undersöka som är anledningen till att de har försvunnit? 
@@ -53,10 +53,11 @@ Hur ska jag komma tillbaka till fastlandet?
 Är jag den enda överlevaren?
 Desto mer du ligger och tänker desto tyngre blir ögonlocken.
 Till slut blir det svart.'''
+)
 
 postGameLore = {
     'turtle': 'Du ger sköldpaddan det guldiga sjögräset och som tack hjälper den dig ifrån ön \nDu kommer hem efter att ha varit på ön i flera veckor med sköldpaddan vid din sida. Din första tankte är vart din familj är och när du öppnar dörren så ser du en annan familj i ditt hus. Åh nej du har inte betalat ränta och har blivit av med ditt hus. Men det är lungt för sköldpaddan låter dig bo med den så ni lever lyckliga i alla era dar',
-    'raft': 'Du använder materialen för att bygga en flåtte som du använder att fly från ön och när du kommer hem och din familj är överlyckliga att se dig. Dom har varit så oroliga och tagit hand om ditt hus och din katt åt dig.'
+    'raft': 'Du använder materialen för att bygga en flotte som du använder att fly från ön och när du kommer hem och din familj är överlyckliga att se dig. De har varit så oroliga och tagit hand om ditt hus och din katt åt dig.'
 }
 
 controlInfo = f'''Information:

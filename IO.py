@@ -91,6 +91,8 @@ def printLore():
     '''Skriv ut bakgrundsinformation om storyn till spelet'''
 
     print(text.preGameLore)
+    time.sleep(3)
+    input("\nTryck ENTER för att fortsätta")
 
 def printControls():
     '''Skriv ut kontrollerna och vänta tills spelaren vill börja'''

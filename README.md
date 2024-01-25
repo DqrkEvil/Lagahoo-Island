@@ -1,6 +1,6 @@
 # Lagahoo Island
 
-Text-baserat äventyrsspel där du är strandad på en ö och ditt mål är att ta dig ifrån ön genom att utforska den och hitta saker som kan hjälpa dig med att fly från ön 
+Textbaserat äventyrsspel som utspelar sig på en strandad ö. Ditt mål är att ta dig från ön genom att utforska och hitta saker som kan hjälpa dig fly. 
 
 ## Run
 > **Required prequisites**: <br>

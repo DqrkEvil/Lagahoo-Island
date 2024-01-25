@@ -15,9 +15,10 @@ logger = logging.getLogger('__main__')
 
 #* Inputs
 class Controls():
-    '''Klass för att hantera spelarens inputs'''
+    '''Klass för alla hotkeys'''
 
     def __init__(self) -> None:
+        '''Lägg till alla hotkeys'''
         self.add_hotkeys()
 
         self.key = None
@@ -28,7 +29,7 @@ class Controls():
         # Återställ variabeln
         self.key = None
 
-        # Vänta tills en annan knapp trycks ner
+        # Vänta tills esn annan knapp trycks ner
         logger.info('Awaiting keyboard input')
         while True:
             if self.key is not None:

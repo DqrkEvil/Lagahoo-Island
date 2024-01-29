@@ -19,7 +19,7 @@
 ---
 Se kartan under ifall du tappar bort dig:
 
-<a href="https://app.diagrams.net/#G1Tsxi-tcPhRDexzwQGCSoSpEp3g8QmN8W"> Karta</a>
+<a href="https://drive.google.com/file/d/1Tsxi-tcPhRDexzwQGCSoSpEp3g8QmN8W/view?usp=sharing"> Karta</a>
 
 Svaret på gåtan är **Sängen** eller något liknande
 

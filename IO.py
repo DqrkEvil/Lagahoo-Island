@@ -107,7 +107,7 @@ def standardPrint(*sections, add_dots: bool = True, explored: bool = False):
     :add_dots: Lägg till punkter mellan sektionerna'''
 
     section_end = '. ' if add_dots else ''
-    char_delay = 0.018 if explored else 0.04
+    char_delay = 0.02 if explored else 0.04
 
     for section in sections:
         if section:

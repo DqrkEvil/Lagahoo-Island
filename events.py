@@ -12,14 +12,14 @@ import text
 
 logger = logging.getLogger('__main__')
 
-def tile_event(current_tile: level.Tile, game_level: level.Level, game_slot: int) -> bool:
-    '''Om det finns något event på tile, annars gör inget. Returnera True om spelet ska hoppa till nästa iteration'''
+def tile_events(tile: level.Tile, game_level: level.Level, game_slot: int) -> bool:
+    '''Om det finns något event på tile, annars gör inget. Returnera True om spelet ska hoppa till nästa iteration av main loopen'''
 
-    x = current_tile.x
-    y = current_tile.y
+    # Vissa event gör att programmet borde hoppa frampåt en iteration
+    skip = False
 
     # base
-    if x == 3 and y == 4:
+    if tile.x == 3 and tile.y == 4:
         # Spara spel
         tiles = game_level.compress_tiles()
         logger.debug(f'Current inventory to save: {items.inventory}')
@@ -30,33 +30,30 @@ def tile_event(current_tile: level.Tile, game_level: level.Level, game_slot: int
             inventory=items.inventory,
             level=tiles)
 
-        return False
-
     # parrot, om man inte har sjögräset än
-    if x == 2 and y == 1 and items.golden_seaweed not in items.inventory:
+    elif tile.x == 2 and tile.y == 1 and items.golden_seaweed not in items.inventory:
         while True:
-            IO.standardPrint(text.parrot_riddle[0])
+            IO.standardPrint('Papegojan börjar prata med dig och ställer en gåta:\n', text.parrot_riddle[0], add_dots=False)
 
             answer = input().lower().strip()
 
             if answer in text.parrot_riddle[1]:
-                IO.standardPrint(f'Du hade rätt.\nPapegojan gav dig {items.golden_seaweed}')
+                IO.standardPrint(f'\nDu hade rätt!\nPapegojan gav dig {items.golden_seaweed}')
                 items.inventory.append(items.golden_seaweed)
-                current_tile.descriptions[0] = '\nPapegojan är glad att du kunde svaret till dens gåta.\n*Sköldpaddan vid stranden skulle nog uppskatta sjögräset*'
+                tile.descriptions[0] = '\nPapegojan är glad att du kunde svaret till dens gåta.\n*Sköldpaddan vid stranden skulle nog uppskatta sjögräset*'
                 break
 
-            if not answer:
-                break
+        # Tile attribut har ändrats, hoppa till nästa
+        skip = True
 
-        return True
-
-    if x == 5 and y == 3:
+    elif tile.x == 5 and tile.y == 3:
         IO.standardPrint('Varför hoppade du ner på spikarna?.\nDet var ett dåligt val, men vi är snälla och placerar dig tillbaka där du vaknade')
         game_level.current_tile = game_level.get_tile(3, 4)
 
-        return True
+        # Hoppa till nästa loop för att fortsätta vid 3, 4
+        skip = True
 
-    return False
+    return skip
 
 def ending():
     for n in range(15, -1, -1):

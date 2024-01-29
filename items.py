@@ -36,7 +36,7 @@ def pickup_item(current_tile: level.Tile, game_level: level.Level) -> None:
             current_tile.descriptions[0] = '\nDu är i stugans kök'
 
             mountain_tile = game_level.get_tile(4, 3)
-            mountain_tile.descriptions[0] = 'Du finner dig högt upp i bergen, oj vad kallt det var här.'
+            mountain_tile.descriptions[0] = '\nDu finner dig högt upp i bergen, oj vad kallt det var här.'
             mountain_tile.connections('add', directions.up, game_level)
 
         if item == shovel:
@@ -81,7 +81,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
             # Uppdatera tile attribut
             current_tile.usable_item = None
-            current_tile.descriptions[0] = 'Du är djupare i grottan, det ligger grus och större stenblock på golvet'
+            current_tile.descriptions[0] = '\nDu är djupare i grottan, det ligger grus och större stenblock på golvet'
             current_tile.connections('add', directions.right, game_level)
 
         elif item == hatchet and current_tile.y == 3:
@@ -89,7 +89,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
             # Uppdatera tile attribut
             current_tile.usable_item = None
-            current_tile.descriptions[0] = 'Du befinner dig i jungeln'
+            current_tile.descriptions[0] = '\nDu befinner dig i jungeln'
             inventory.append(materials)
 
         elif item == hatchet and current_tile.y == 2:
@@ -98,7 +98,7 @@ def use_item(current_tile: level.Tile, game_level: level.Level) -> None:
 
             # Uppdatera tile attribut
             current_tile.usable_item = None
-            current_tile.descriptions = ['Du ser apan som du hjälpte sitta och äta bananer från lådorna', 'Du ser en apa som äter bananer %(direction)s']
+            current_tile.descriptions = ['\nDu ser apan som du hjälpte sitta och äta bananer från lådorna', 'Du ser en apa som äter bananer %(direction)s']
             current_tile.connections('add', directions.left, game_level)
 
         logger.info(f'Used {item} on {current_tile.x},{current_tile.y}')

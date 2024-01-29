@@ -5,7 +5,7 @@ Textbaserat äventyrsspel som utspelar sig på en strandad ö. Ditt mål är att
 ## Run
 > **Required prequisites**: <br>
 Python 3.12+ <br>
-requirements.txt
+CLI/terminal that uses `cls` to clear<br>
 
 - Download latest release or clone repository by running the following command in your CLI/terminal:  `git clone https://github.com/DqrkEvil/Lagahoo-Island` 
 

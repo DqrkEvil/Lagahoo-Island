@@ -2,15 +2,17 @@
 
 Textbaserat äventyrsspel som utspelar sig på en strandad ö. Ditt mål är att ta dig från ön genom att utforska och hitta saker som kan hjälpa dig fly. 
 
-## Run
-> **Required prequisites**: <br>
+## Körning
+> **Förutsättningar som krävs**: <br>
 Python 3.12+ <br>
-CLI/terminal that uses `cls` to clear<br>
+CLI/terminal som använder `cls` för att rensa<br>
 
-- Download latest release or clone repository by running the following command in your CLI/terminal:  `git clone https://github.com/DqrkEvil/Lagahoo-Island` 
+- Ladda ner den senaste versionen eller klona genom att köra följande kommando i din CLI/terminal: `git clone https://github.com/DqrkEvil/Lagahoo-Island` 
 
-- Open the Lagahoo Island folder
+- Öppna mappen Lagahoo Island
 
-- Open CLI/terminal and run `pip install -r requirements.txt`
+- Öppna CLI/terminal i mappen
 
-- In the CLI/terminal run `python main.py`
+- Kör första gången `pip install -r requirements.txt`
+
+- För att starta spelet `py main.py`

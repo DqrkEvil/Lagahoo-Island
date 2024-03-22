@@ -59,9 +59,9 @@ def ending():
     for n in range(15, -1, -1):
         time.sleep(1)
         print(f' {n} ', end='\r')
-    
-    keyboard.send("windows+d")
-    time.sleep(0.5)
+
+    # keyboard.send("windows+d")
+    # time.sleep(0.5)
     keyboard.send("alt+F4")
-    time.sleep(0.5)
-    keyboard.send("enter")
+    # time.sleep(0.5)
+    # keyboard.send("enter")
